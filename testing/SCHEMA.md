@@ -41,7 +41,12 @@ loaded) and **Treatment** (skill loaded via `load_skill(name)`).
 
 ## 4. JSON result schema
 
-Each skill produces one JSON file at `testing/results/<profile-id>/<skill-id>.json`.
+Each skill produces one JSON file at
+`<skills-dir>/test/<yymmdd>/<profile-id>/<skill-id>.json` — a per-run folder
+**relative to the live skills directory** (e.g. `~/.claude/skills/test/260930/`),
+where `<yymmdd>` is the actual run date (suffixed `-2`, `-3`, … if multiple runs
+happen the same day). The pack's `testing/results/` is now only for the archived
+historical run (`testing/results-archive/`); fresh runs go to the per-run folder.
 The schema is:
 
 ```json
@@ -78,7 +83,7 @@ The schema is:
 
 - `skill` — the skill id, must equal the result filename stem.
 - `profile` — the agent profile id; must equal the parent directory name under
-  `results/`.
+  the run folder (e.g. `<skills-dir>/test/<yymmdd>/<profile-id>/`).
 - `model` — the model name for this profile (free-form string, consistent within
   a profile).
 - `harness` — short description of the environment (e.g. "omnideck", "cli").
@@ -121,7 +126,7 @@ baseline) and let `pct_of_max` decide.
 
 ## 5. Human-readable result template
 
-The `.md` result at `testing/results/<profile-id>/<skill-id>.md` uses this
+The `.md` result at `<skills-dir>/test/<yymmdd>/<profile-id>/<skill-id>.md` uses this
 frontmatter and structure (mirrors the JSON):
 
 ```markdown
