@@ -4,7 +4,7 @@ description: Install Agent Skills from any source — git repos, skills.sh, skil
 license: MIT
 compatibility: Requires git (for repo sources), Python 3.10+ (for archive extraction and frontmatter parsing), and network access (for remote sources)
 metadata:
-  author: rlnorthcutt
+  author: omnideck-dev
   version: "1.0"
 ---
 
