@@ -1,0 +1,11 @@
+{
+  "skill": "make-slides",
+  "profile": "0c6e7e6c9e12",
+  "model": "google/gemini-2.5-flash-lite",
+  "harness": "omnideck",
+  "date": "2026-10-01",
+  "trials": [],
+  "trigger": {"positive": "not-run", "negative": "not-run"},
+  "totals": {"baseline_avg": null, "treatment_avg": null, "ratio": null, "pct_of_max": null, "verdict": "incomplete"},
+  "notes": "Not run — flash-lite provider became unstable (rate limits + provider errors) after 12 skills. Profile marked incomplete."
+}

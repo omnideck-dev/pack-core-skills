@@ -1,0 +1,42 @@
+{
+  "skill": "humanize-text",
+  "profile": "code_expert",
+  "model": "deepseek/deepseek-v4-flash-0731",
+  "harness": "omnideck",
+  "date": "2026-10-01",
+  "trials": [
+    {
+      "id": "t1",
+      "task": "De-AI the productivity article",
+      "baseline_score": 5,
+      "treatment_score": 9,
+      "notes": "Baselines often add new tells while removing old ones"
+    },
+    {
+      "id": "t2",
+      "task": "Human-but-rough draft (overcorrection test)",
+      "baseline_score": 5,
+      "treatment_score": 10,
+      "notes": "Same pattern"
+    },
+    {
+      "id": "t3",
+      "task": "Technical passage w/ necessary hedges",
+      "baseline_score": 8,
+      "treatment_score": 9,
+      "notes": "Both preserve precision"
+    }
+  ],
+  "trigger": {
+    "positive": "pass",
+    "negative": "pass"
+  },
+  "totals": {
+    "baseline_avg": 6.0,
+    "treatment_avg": 9.33,
+    "ratio": 1.56,
+    "pct_of_max": 93.3,
+    "verdict": "fail"
+  },
+  "notes_protocol": "Batch ran on code_expert (deepseek-v4-flash) due to runner error; all 4 nominally-different profile batches were the same model. Records are valid deepseek-v4-flash A/B data only."
+}

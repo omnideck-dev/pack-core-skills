@@ -1,0 +1,14 @@
+{
+  "skill": "plan-learning",
+  "profile": "1ec63e21c30b",
+  "model": "z-ai/glm-5.3-flash",
+  "harness": "omnideck",
+  "date": "2026-10-01",
+  "trials": [
+    {"id": "t1", "task": "Kubernetes 4h/wk x 8wk", "baseline_score": 6, "treatment_score": 10, "notes": "Baseline: topic list; treatment: full structure w/ mastery tests + operating rules"},
+    {"id": "t2", "task": "MLE 6wk x 20h (over-ambitious)", "baseline_score": 5, "treatment_score": 10, "notes": "Baseline accepts impossible goal (caveat buried); treatment feasibility-check first"},
+    {"id": "t3", "task": "Rust retry after failure", "baseline_score": 8, "treatment_score": 10, "notes": "Treatment: failure-mode analysis, anchor+flex sessions, anti-collapse contract"}
+  ],
+  "trigger": {"positive": "pass", "negative": "pass"},
+  "totals": {"baseline_avg": 6.33, "treatment_avg": 10.0, "ratio": 1.58, "pct_of_max": 100.0, "verdict": "fail"}
+}

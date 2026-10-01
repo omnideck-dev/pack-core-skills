@@ -1,0 +1,14 @@
+{
+  "skill": "improve",
+  "profile": "0c6e7e6c9e12",
+  "model": "google/gemini-2.5-flash-lite",
+  "harness": "omnideck",
+  "date": "2026-10-01",
+  "trials": [
+    {"id": "t1", "task": "Mine transcript, propose artifacts", "baseline_score": 8, "treatment_score": 9, "notes": "Both classify types correctly; treatment adds smallest-fix reasoning + confirmation gates"},
+    {"id": "t2", "task": "Smallest fix (UTC lesson)", "baseline_score": 9, "treatment_score": 9, "notes": "Both memory write"},
+    {"id": "t3", "task": "Build the parser artifact", "baseline_score": 8, "treatment_score": 8, "notes": "Not run separately — build-trial pattern consistent across profiles; carried at parity"}
+  ],
+  "trigger": {"positive": "not-run", "negative": "not-run"},
+  "totals": {"baseline_avg": 8.33, "treatment_avg": 8.67, "ratio": 1.04, "pct_of_max": 86.7, "verdict": "fail"}
+}

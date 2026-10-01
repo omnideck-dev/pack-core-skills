@@ -1,0 +1,14 @@
+{
+  "skill": "improve",
+  "profile": "1ec63e21c30b",
+  "model": "z-ai/glm-5.3-flash",
+  "harness": "omnideck",
+  "date": "2026-10-01",
+  "trials": [
+    {"id": "t1", "task": "Mine transcript, propose artifacts", "baseline_score": 8, "treatment_score": 10, "notes": "Treatment: correct types, verbatim citations, not-proposed section"},
+    {"id": "t2", "task": "Smallest fix (UTC lesson)", "baseline_score": 8, "treatment_score": 10, "notes": "Baseline hedges file-vs-memory; treatment commits to memory write"},
+    {"id": "t3", "task": "Build the parser artifact", "baseline_score": 9, "treatment_score": 10, "notes": "Treatment: clean error path (exit 2, no traceback) + tool framing"}
+  ],
+  "trigger": {"positive": "pass", "negative": "pass"},
+  "totals": {"baseline_avg": 8.33, "treatment_avg": 10.0, "ratio": 1.2, "pct_of_max": 100.0, "verdict": "fail"}
+}

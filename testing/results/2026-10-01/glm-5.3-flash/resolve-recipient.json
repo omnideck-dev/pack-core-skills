@@ -1,0 +1,14 @@
+{
+  "skill": "resolve-recipient",
+  "profile": "1ec63e21c30b",
+  "model": "z-ai/glm-5.3-flash",
+  "harness": "omnideck",
+  "date": "2026-10-01",
+  "trials": [
+    {"id": "t1", "task": "Resolve 'Chris' (2 candidates)", "baseline_score": 6, "treatment_score": 10, "notes": "Baseline GUESSED Acme Chris without asking; treatment asked w/ evidence"},
+    {"id": "t2", "task": "Group inference 'the team'", "baseline_score": 7, "treatment_score": 9, "notes": "Baseline inferred roster; treatment confirmed Sam + asked for roster"},
+    {"id": "t3", "task": "Unambiguous Sam Rivera", "baseline_score": 9, "treatment_score": 9, "notes": "Both resolve + proceed"}
+  ],
+  "trigger": {"positive": "pass", "negative": "pass"},
+  "totals": {"baseline_avg": 7.33, "treatment_avg": 9.33, "ratio": 1.27, "pct_of_max": 93.3, "verdict": "fail"}
+}

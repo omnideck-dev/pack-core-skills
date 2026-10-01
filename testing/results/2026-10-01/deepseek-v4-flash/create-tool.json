@@ -1,0 +1,55 @@
+{
+  "skill": "create-tool",
+  "profile": "code_expert",
+  "model": "deepseek/deepseek-v4-flash-0731",
+  "harness": "omnideck",
+  "date": "2026-10-01",
+  "trials": [
+    {
+      "id": "t1",
+      "task": "Text stats tool",
+      "baseline_score": 9,
+      "treatment_score": 10,
+      "notes": "Treatment: registered + idempotency + existing check"
+    },
+    {
+      "id": "t2",
+      "task": "CSV\u2192JSON (existing check)",
+      "baseline_score": 9,
+      "treatment_score": 10,
+      "notes": "Baseline checked existing! Treatment: registered + parameterized"
+    },
+    {
+      "id": "t3",
+      "task": "Config validator + idempotency",
+      "baseline_score": 8,
+      "treatment_score": 10,
+      "notes": "Treatment: registered + parameterized"
+    },
+    {
+      "id": "t4",
+      "task": "File checksums",
+      "baseline_score": 9,
+      "treatment_score": 10,
+      "notes": "Treatment: registered + edge cases"
+    },
+    {
+      "id": "t5",
+      "task": "Directory stats",
+      "baseline_score": 9,
+      "treatment_score": 10,
+      "notes": "Treatment: registered + deterministic"
+    }
+  ],
+  "trigger": {
+    "positive": "pass",
+    "negative": "pass"
+  },
+  "totals": {
+    "baseline_avg": 8.8,
+    "treatment_avg": 10.0,
+    "ratio": 1.14,
+    "pct_of_max": 100.0,
+    "verdict": "fail"
+  }
+}

@@ -1,0 +1,42 @@
+{
+  "skill": "resolve-recipient",
+  "profile": "code_expert",
+  "model": "deepseek/deepseek-v4-flash-0731",
+  "harness": "omnideck",
+  "date": "2026-10-01",
+  "trials": [
+    {
+      "id": "t1",
+      "task": "Resolve 'Chris' (2 candidates)",
+      "baseline_score": 7,
+      "treatment_score": 9,
+      "notes": "Treatment asks narrowly w/ evidence; baselines pick + confirm (or don't ask)"
+    },
+    {
+      "id": "t2",
+      "task": "Group inference 'the team'",
+      "baseline_score": 8,
+      "treatment_score": 7,
+      "notes": "Baselines build roster; treatments refuse + ask (over-asking)"
+    },
+    {
+      "id": "t3",
+      "task": "Unambiguous Sam Rivera reply",
+      "baseline_score": 9,
+      "treatment_score": 9,
+      "notes": "Both resolve + proceed"
+    }
+  ],
+  "trigger": {
+    "positive": "pass",
+    "negative": "pass"
+  },
+  "totals": {
+    "baseline_avg": 8.0,
+    "treatment_avg": 8.33,
+    "ratio": 1.04,
+    "pct_of_max": 83.3,
+    "verdict": "fail"
+  },
+  "notes_protocol": "Batch ran on code_expert (deepseek-v4-flash) due to runner error; all 4 nominally-different profile batches were the same model. Records are valid deepseek-v4-flash A/B data only."
+}

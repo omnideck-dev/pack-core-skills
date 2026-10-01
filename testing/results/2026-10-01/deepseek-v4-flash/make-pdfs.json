@@ -1,0 +1,41 @@
+{
+  "skill": "make-pdfs",
+  "profile": "code_expert",
+  "model": "deepseek/deepseek-v4-flash-0731",
+  "harness": "omnideck",
+  "date": "2026-10-01",
+  "trials": [
+    {
+      "id": "t1",
+      "task": "Onboarding checklist PDF",
+      "baseline_score": 9,
+      "treatment_score": 9,
+      "notes": "Both visual verified"
+    },
+    {
+      "id": "t2",
+      "task": "Extract text",
+      "baseline_score": 9,
+      "treatment_score": 9,
+      "notes": "Both clean"
+    },
+    {
+      "id": "t3",
+      "task": "Create + merge",
+      "baseline_score": 9,
+      "treatment_score": 9,
+      "notes": "Both verified"
+    }
+  ],
+  "trigger": {
+    "positive": "pass",
+    "negative": "pass"
+  },
+  "totals": {
+    "baseline_avg": 9.0,
+    "treatment_avg": 9.0,
+    "ratio": 1.0,
+    "pct_of_max": 90.0,
+    "verdict": "fail"
+  }
+}

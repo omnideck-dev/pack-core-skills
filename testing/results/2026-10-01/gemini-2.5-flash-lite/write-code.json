@@ -1,0 +1,14 @@
+{
+  "skill": "write-code",
+  "profile": "0c6e7e6c9e12",
+  "model": "google/gemini-2.5-flash-lite",
+  "harness": "omnideck",
+  "date": "2026-10-01",
+  "trials": [
+    {"id": "t1", "task": "CSV summary CLI", "baseline_score": 7, "treatment_score": 9, "notes": "Treatment tested error path; both verified (orchestrator re-ran both)"},
+    {"id": "t2", "task": "Targeted edit: get_timeout()", "baseline_score": 9, "treatment_score": 5, "notes": "Treatment's patch REPLACED get_log_level() (deleted a function); baseline clean append"},
+    {"id": "t3", "task": "Flask health server + cleanup", "baseline_score": 5, "treatment_score": 7, "notes": "Baseline: wrote correct app but confabulated a port blocker, never verified. Treatment: verified but couldn't stop server (honest failure report); orchestrator cleaned up"}
+  ],
+  "trigger": {"positive": "not-run", "negative": "not-run"},
+  "totals": {"baseline_avg": 7.0, "treatment_avg": 7.0, "ratio": 1.0, "pct_of_max": 70.0, "verdict": "fail"}
+}

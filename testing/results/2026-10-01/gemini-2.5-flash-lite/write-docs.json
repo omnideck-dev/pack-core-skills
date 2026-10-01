@@ -1,0 +1,14 @@
+{
+  "skill": "write-docs",
+  "profile": "0c6e7e6c9e12",
+  "model": "google/gemini-2.5-flash-lite",
+  "harness": "omnideck",
+  "date": "2026-10-01",
+  "trials": [
+    {"id": "t1", "task": "README for csvsum.py (verify commands)", "baseline_score": 5, "treatment_score": 6, "notes": "Baseline: untested claims + invented MIT license; treatment: license placeholder honest but example outputs wrong (9 rows/155.0 vs actual 8/157.14)"},
+    {"id": "t2", "task": "API reference", "baseline_score": 8, "treatment_score": 8, "notes": "Not run separately — carried at parity"},
+    {"id": "t3", "task": "Correct stale doc claims", "baseline_score": 9, "treatment_score": 9, "notes": "Both caught --output + dedup falsehoods"}
+  ],
+  "trigger": {"positive": "not-run", "negative": "not-run"},
+  "totals": {"baseline_avg": 7.33, "treatment_avg": 7.67, "ratio": 1.05, "pct_of_max": 76.7, "verdict": "fail"}
+}

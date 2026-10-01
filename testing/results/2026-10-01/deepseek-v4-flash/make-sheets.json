@@ -1,0 +1,41 @@
+{
+  "skill": "make-sheets",
+  "profile": "code_expert",
+  "model": "deepseek/deepseek-v4-flash-0731",
+  "harness": "omnideck",
+  "date": "2026-10-01",
+  "trials": [
+    {
+      "id": "t1",
+      "task": "Workbook from dirty CSV",
+      "baseline_score": 6,
+      "treatment_score": 10,
+      "notes": "Baseline: types fixed, TOTAL filtered, but NO formulas (baked values); treatment: SUMIF formulas + date-named file"
+    },
+    {
+      "id": "t2",
+      "task": "Inspect + fix text-numbers",
+      "baseline_score": 8,
+      "treatment_score": 9,
+      "notes": "Treatment adds formulas on summary"
+    },
+    {
+      "id": "t3",
+      "task": "Chart + round-trip verify",
+      "baseline_score": 8,
+      "treatment_score": 10,
+      "notes": "Treatment: finding-title chart + range verification"
+    }
+  ],
+  "trigger": {
+    "positive": "pass",
+    "negative": "pass"
+  },
+  "totals": {
+    "baseline_avg": 7.33,
+    "treatment_avg": 9.67,
+    "ratio": 1.32,
+    "pct_of_max": 96.7,
+    "verdict": "fail"
+  }
+}

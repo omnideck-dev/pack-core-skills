@@ -1,0 +1,14 @@
+{
+  "skill": "make-slides",
+  "profile": "1ec63e21c30b",
+  "model": "z-ai/glm-5.3-flash",
+  "harness": "omnideck",
+  "date": "2026-10-01",
+  "trials": [
+    {"id": "t1", "task": "Trunk-based dev deck w/ data", "baseline_score": 6, "treatment_score": 10, "notes": "Baseline: topic headlines; treatment: assertion headlines + story-first"},
+    {"id": "t2", "task": "Edit slide 3 headline + data", "baseline_score": 6, "treatment_score": 10, "notes": "Baseline LEFT SLIDE 7 STALE (12 to 3); treatment caught + updated the repeated figure"},
+    {"id": "t3", "task": "Layout inspection", "baseline_score": 7, "treatment_score": 9, "notes": "Baseline shallow; treatment deeper checks + honest render limitation"}
+  ],
+  "trigger": {"positive": "pass", "negative": "pass"},
+  "totals": {"baseline_avg": 6.33, "treatment_avg": 9.67, "ratio": 1.53, "pct_of_max": 96.7, "verdict": "fail"}
+}

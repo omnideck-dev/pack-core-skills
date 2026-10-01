@@ -1,0 +1,14 @@
+{
+  "skill": "simplify-code",
+  "profile": "1ec63e21c30b",
+  "model": "z-ai/glm-5.3-flash",
+  "harness": "omnideck",
+  "date": "2026-10-01",
+  "trials": [
+    {"id": "t1", "task": "Simplify 3 added methods", "baseline_score": 10, "treatment_score": 10, "notes": "Identical convergence incl. seed-3 empty guard"},
+    {"id": "t2", "task": "Same", "baseline_score": 10, "treatment_score": 10, "notes": "Same"},
+    {"id": "t3", "task": "Same", "baseline_score": 10, "treatment_score": 10, "notes": "Same"}
+  ],
+  "trigger": {"positive": "pass", "negative": "pass"},
+  "totals": {"baseline_avg": 10.0, "treatment_avg": 10.0, "ratio": 1.0, "pct_of_max": 100.0, "verdict": "fail"}
+}

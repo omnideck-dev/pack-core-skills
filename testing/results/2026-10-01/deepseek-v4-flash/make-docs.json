@@ -1,0 +1,41 @@
+{
+  "skill": "make-docs",
+  "profile": "code_expert",
+  "model": "deepseek/deepseek-v4-flash-0731",
+  "harness": "omnideck",
+  "date": "2026-10-01",
+  "trials": [
+    {
+      "id": "t1",
+      "task": "Create retention-policy docx",
+      "baseline_score": 7,
+      "treatment_score": 10,
+      "notes": "Treatment: Subtitle + front-loaded exec summary + retention table + List Bullet"
+    },
+    {
+      "id": "t2",
+      "task": "Add section at correct level",
+      "baseline_score": 9,
+      "treatment_score": 9,
+      "notes": "Both appended H1 correctly"
+    },
+    {
+      "id": "t3",
+      "task": "Structure inspection",
+      "baseline_score": 9,
+      "treatment_score": 9,
+      "notes": "Both correct: navigable in Word"
+    }
+  ],
+  "trigger": {
+    "positive": "pass",
+    "negative": "pass"
+  },
+  "totals": {
+    "baseline_avg": 8.33,
+    "treatment_avg": 9.33,
+    "ratio": 1.12,
+    "pct_of_max": 93.3,
+    "verdict": "fail"
+  }
+}

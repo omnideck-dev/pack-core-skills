@@ -1,0 +1,42 @@
+{
+  "skill": "write-code",
+  "profile": "code_expert",
+  "model": "deepseek/deepseek-v4-flash-0731",
+  "harness": "omnideck",
+  "date": "2026-10-01",
+  "trials": [
+    {
+      "id": "t1",
+      "task": "CSV summary CLI tool",
+      "baseline_score": 9,
+      "treatment_score": 9,
+      "notes": "Both verified happy+error paths"
+    },
+    {
+      "id": "t2",
+      "task": "Targeted edit: add get_timeout() to config.py",
+      "baseline_score": 8,
+      "treatment_score": 7,
+      "notes": "T2-treatment rewrote fixture + duplicate get_timeout (worse than baseline); T3-treatment process reaped after session"
+    },
+    {
+      "id": "t3",
+      "task": "Flask health server, background + curl verify",
+      "baseline_score": 9,
+      "treatment_score": 8,
+      "notes": "Background persistence flaky in shared /tmp environment"
+    }
+  ],
+  "trigger": {
+    "positive": "not-run",
+    "negative": "not-run"
+  },
+  "totals": {
+    "baseline_avg": 8.67,
+    "treatment_avg": 8.0,
+    "ratio": 0.92,
+    "pct_of_max": 80.0,
+    "verdict": "fail"
+  },
+  "notes_protocol": "Batch ran on code_expert (deepseek-v4-flash) due to runner error; all 4 nominally-different profile batches were the same model. Records are valid deepseek-v4-flash A/B data only."
+}

@@ -1,0 +1,14 @@
+{
+  "skill": "review-code",
+  "profile": "0c6e7e6c9e12",
+  "model": "google/gemini-2.5-flash-lite",
+  "harness": "omnideck",
+  "date": "2026-10-01",
+  "trials": [
+    {"id": "t1", "task": "Review inventory-service change", "baseline_score": 4, "treatment_score": 7, "notes": "Baseline hallucinated APIs, missed planted bugs; treatment read real code, found ZeroDiv + O(n²) + non-atomicity"},
+    {"id": "t2", "task": "Same", "baseline_score": 2, "treatment_score": 7, "notes": "Baseline FLAGGED THE TOCTOU TRAP as Critical; treatment clean"},
+    {"id": "t3", "task": "Same", "baseline_score": 5, "treatment_score": 7, "notes": "Baseline found ZeroDiv but invented missing-docstring/type-hints findings; treatment solid"}
+  ],
+  "trigger": {"positive": "pass", "negative": "fail"},
+  "totals": {"baseline_avg": 3.67, "treatment_avg": 7.0, "ratio": 1.91, "pct_of_max": 70.0, "verdict": "needs-refinement"}
+}

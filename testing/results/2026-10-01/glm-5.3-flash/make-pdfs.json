@@ -1,0 +1,14 @@
+{
+  "skill": "make-pdfs",
+  "profile": "1ec63e21c30b",
+  "model": "z-ai/glm-5.3-flash",
+  "harness": "omnideck",
+  "date": "2026-10-01",
+  "trials": [
+    {"id": "t1", "task": "One-page onboarding checklist PDF", "baseline_score": 9, "treatment_score": 9, "notes": "Both HTML->weasyprint + visual verification"},
+    {"id": "t2", "task": "Extract text", "baseline_score": 9, "treatment_score": 9, "notes": "Both clean; treatment adds completeness check"},
+    {"id": "t3", "task": "Create + merge PDFs", "baseline_score": 9, "treatment_score": 9, "notes": "Both verified visually"}
+  ],
+  "trigger": {"positive": "pass", "negative": "pass"},
+  "totals": {"baseline_avg": 9.0, "treatment_avg": 9.0, "ratio": 1.0, "pct_of_max": 90.0, "verdict": "fail"}
+}

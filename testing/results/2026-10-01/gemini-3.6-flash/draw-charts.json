@@ -1,0 +1,14 @@
+{
+  "skill": "draw-charts",
+  "profile": "7908f0365989",
+  "model": "google/gemini-3.6-flash",
+  "harness": "omnideck",
+  "date": "2026-10-01",
+  "trials": [
+    {"id": "t1", "task": "Which region grew fastest?", "baseline_score": 6, "treatment_score": 10, "notes": "Baseline: generic line chart; treatment: sorted growth-rate bar w/ finding title"},
+    {"id": "t2", "task": "Chart sales by region (open-ended)", "baseline_score": 8, "treatment_score": 9, "notes": "Treatment adds direct line-end labels + finding title"},
+    {"id": "t3", "task": "Percent of total by region", "baseline_score": 6, "treatment_score": 10, "notes": "Baseline used PIE (4 slices); treatment used sorted bar w/ denominator reasoning"}
+  ],
+  "trigger": {"positive": "pass", "negative": "pass"},
+  "totals": {"baseline_avg": 6.67, "treatment_avg": 9.67, "ratio": 1.45, "pct_of_max": 96.7, "verdict": "fail"}
+}

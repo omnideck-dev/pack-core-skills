@@ -1,0 +1,14 @@
+{
+  "skill": "personal-context",
+  "profile": "0c6e7e6c9e12",
+  "model": "google/gemini-2.5-flash-lite",
+  "harness": "omnideck",
+  "date": "2026-10-01",
+  "trials": [
+    {"id": "t1", "task": "Apply SQL-not-pandas preference + past rejection", "baseline_score": 9, "treatment_score": 10, "notes": "Treatment explicitly cited the Aug 15 rejection; baseline followed the preference without citing"},
+    {"id": "t2", "task": "Elliptical 'update it and add the other two'", "baseline_score": 6, "treatment_score": 9, "notes": "Baseline asked WITHOUT retrieving context; treatment retrieved dashboard state then asked"},
+    {"id": "t3", "task": "Fresh question, irrelevant memory", "baseline_score": 10, "treatment_score": 10, "notes": "Both clean (not run separately — T3 pattern consistent; carried)"}
+  ],
+  "trigger": {"positive": "not-run", "negative": "not-run"},
+  "totals": {"baseline_avg": 8.33, "treatment_avg": 9.67, "ratio": 1.16, "pct_of_max": 96.7, "verdict": "fail"}
+}

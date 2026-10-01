@@ -1,0 +1,14 @@
+{
+  "skill": "plan-learning",
+  "profile": "0c6e7e6c9e12",
+  "model": "google/gemini-2.5-flash-lite",
+  "harness": "omnideck",
+  "date": "2026-10-01",
+  "trials": [
+    {"id": "t1", "task": "Kubernetes 4h/wk x 8wk", "baseline_score": 7, "treatment_score": 9, "notes": "Treatment: full structure (arithmetic, buffer, dep map w/ mastery tests, review-first, MVS, cards, operating rules)"},
+    {"id": "t2", "task": "MLE 6wk x 20h (over-ambitious)", "baseline_score": 4, "treatment_score": 6, "notes": "Baseline accepts impossible goal; treatment REFUSED to plan (scope-honest but unhelpful — didn't cut-and-deliver)"},
+    {"id": "t3", "task": "Rust retry after failure", "baseline_score": 2, "treatment_score": 0, "notes": "Baseline asked questions, no plan; treatment EMPTY output"}
+  ],
+  "trigger": {"positive": "not-run", "negative": "not-run"},
+  "totals": {"baseline_avg": 4.33, "treatment_avg": 5.0, "ratio": 1.15, "pct_of_max": 50.0, "verdict": "fail"}
+}
