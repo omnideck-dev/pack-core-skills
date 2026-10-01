@@ -11,7 +11,7 @@
 # Behavior:
 #   a. Resolve the live skills directory:
 #        - $OMNIDECK_SKILLS_DIR if set in the invoking env (matches the
-#          upstream core-skills scripts/install.sh convention);
+#          the Omnideck skills directory convention);
 #        - else /var/lib/omnideck/skills (the Omnideck state skills dir).
 #   b. For each skill vendored under skills/<name>/skill.json, copy it into
 #      the live skills dir as <name>.json — but NEVER overwrite an existing
