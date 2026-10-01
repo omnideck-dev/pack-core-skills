@@ -1,9 +1,8 @@
 # pack-core-skills
 
 General-purpose creation, review, and writing skills for Omnideck — a portable
-kit of 24 `SkillRecord` skills (create-*, review-*, write-*, make-*, research,
-visualize, and more) vendored from the upstream
-[`rlnorthcutt/core-skills`](https://github.com/rlnorthcutt/core-skills) repo.
+kit of 22 `SkillRecord` skills (create-*, review-*, write-*, make-*, research,
+visualize, and more).
 
 A pack in the Open Pack Format (OPF). A pack is a manifest plus embedded
 files, containing one or more items: skills, tools, data, routines, or
@@ -14,11 +13,9 @@ See `spec/opf-spec-v1.md` in the opf-core repository for the format.
 ## Contents
 
 - `manifest.json` — the OPF v1 manifest.
-- `skills/<name>/skill.json` — the 24 vendored skills in Omnideck's
+- `skills/<name>/skill.json` — the 22 skills in Omnideck's
   `SkillRecord` JSON format (`id`, `name`, `description`, `prompt`,
   `tool_categories`). `install-skill/` also carries its `SKILL.md`.
-- `data/upstream/` — provenance copy of the upstream repo's
-  `scripts/install.sh` and `scripts/validate.py`, preserved verbatim.
 - `.github/workflows/scan.yml`, `.gitlab-ci.yml` — CI scanning, already wired
   to opf-core's validator and scan template. No setup needed.
 - `hooks/pre-commit` — a local pre-commit security scan (fast feedback, not
@@ -29,8 +26,6 @@ See `spec/opf-spec-v1.md` in the opf-core repository for the format.
 | Skill | Purpose |
 |---|---|
 | `review-code` | Correctness-focused review of code changes |
-| `review-security` | Security-focused review of code changes |
-| `simplify-code` | Quality cleanup of changed code |
 | `write-code` | Write, edit, run, and debug code in the virtual computer |
 | `write-drafts` | Compose complete short-form drafts |
 | `humanize-text` | Remove AI tells from writing |
@@ -53,6 +48,9 @@ See `spec/opf-spec-v1.md` in the opf-core repository for the format.
 | `draw-charts` | Create data visualizations |
 | `visualize` | Build interactive diagrams and simulations as HTML |
 
+See `skills/REJECTED.md` for skills that have been considered and rejected,
+with the reasoning — so they don't get re-added without new evidence.
+
 ## Install
 
 Install this pack with the `pack-install` skill, or `scripts/install-pack.sh`
@@ -70,8 +68,8 @@ diagnose why.
 (`$OMNIDECK_SKILLS_DIR`, else `/var/lib/omnideck/skills`, else
 `~/.claude/skills`). It is **idempotent and non-destructive**: a skill that is
 already installed live is reported and skipped, never overwritten. The live
-catalog is authoritative for already-installed skills (several live copies are
-newer than the vendored ones), so re-running install never clobbers them.
+catalog is authoritative for already-installed skills, so re-running install
+never clobbers them.
 
 ## Validate
 
@@ -109,19 +107,9 @@ rubric, plus trigger probes — to measure each skill's marginal value.
   `GROUND-TRUTH.md` anchors (immutable; see `fixtures/SHA256SUMS`).
 - **`testing/scripts/report.py`** — regenerates per-profile `REPORT.md` and the
   cross-profile `COMPARISON.md`.
-- **`testing/results-archive/`** — the historical single-model baseline record.
+- **`testing/results/`** — testing results by date.
 
 The **`test-skills`** skill (`skills/test-skills/SKILL.md`) teaches any agent how
-to run the program. Four skills are out of test scope (`create-app`,
-`generate-image`, `install-skill`, `visualize`); the reasons are documented in
+to run the program. Five skills are out of test scope (`create-app`,
+`generate-image`, `install-skill`, `visualize`, `review-security`); the reasons are documented in
 `testing/README.md` and the skill itself.
-
-## Upstream provenance
-
-This pack vendors the skills from
-[`rlnorthcutt/core-skills`](https://github.com/rlnorthcutt/core-skills) at
-commit `62627d980db797afebcb4b52f3847c127d9815a4` (2026-09-12). The vendored
-`skill.json` files are the clean, Omnideck-optimized implementations from the
-upstream `skills/` directory; `data/upstream/` preserves the upstream
-`scripts/` verbatim for reference. The upstream repo's own `README.md`
-describes the skill catalog and rollout waves.
