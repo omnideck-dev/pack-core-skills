@@ -1,0 +1,14 @@
+{
+  "skill": "humanize-text",
+  "profile": "0c6e7e6c9e12",
+  "model": "google/gemini-2.5-flash-lite",
+  "harness": "omnideck",
+  "date": "2026-10-01",
+  "trials": [
+    {"id": "t1", "task": "De-AI the productivity article", "baseline_score": 3, "treatment_score": 3, "notes": "Both kept the tells (fast-paced opener, rule-of-three, unlock/remarkable); skill taxonomy didn't transfer"},
+    {"id": "t2", "task": "Human-but-rough draft (overcorrection test)", "baseline_score": 4, "treatment_score": 9, "notes": "Baseline formalized the casual message; treatment PRESERVED register (explicit CASUAL STAYS CASUAL emphasis worked)"},
+    {"id": "t3", "task": "Technical passage w/ hedges", "baseline_score": 8, "treatment_score": 8, "notes": "Both preserve meaning + hedges"}
+  ],
+  "trigger": {"positive": "not-run", "negative": "not-run"},
+  "totals": {"baseline_avg": 5.0, "treatment_avg": 6.67, "ratio": 1.33, "pct_of_max": 66.7, "verdict": "fail"}
+}

@@ -1,0 +1,42 @@
+{
+  "skill": "personal-context",
+  "profile": "code_expert",
+  "model": "deepseek/deepseek-v4-flash-0731",
+  "harness": "omnideck",
+  "date": "2026-10-01",
+  "trials": [
+    {
+      "id": "t1",
+      "task": "Apply SQL-not-pandas preference + past rejection",
+      "baseline_score": 9,
+      "treatment_score": 9,
+      "notes": "Both apply preference"
+    },
+    {
+      "id": "t2",
+      "task": "Elliptical 'update it and add the other two'",
+      "baseline_score": 4,
+      "treatment_score": 9,
+      "notes": "Baselines fabricate continuity (sol/oss claimed fake verification); treatments refuse + ask"
+    },
+    {
+      "id": "t3",
+      "task": "Fresh question, irrelevant memory",
+      "baseline_score": 10,
+      "treatment_score": 10,
+      "notes": "Baselines add retrieval theater (oat milk); treatments abstain"
+    }
+  ],
+  "trigger": {
+    "positive": "pass",
+    "negative": "pass"
+  },
+  "totals": {
+    "baseline_avg": 7.67,
+    "treatment_avg": 9.33,
+    "ratio": 1.22,
+    "pct_of_max": 93.3,
+    "verdict": "fail"
+  },
+  "notes_protocol": "Batch ran on code_expert (deepseek-v4-flash) due to runner error; all 4 nominally-different profile batches were the same model. Records are valid deepseek-v4-flash A/B data only."
+}

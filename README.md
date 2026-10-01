@@ -95,6 +95,27 @@ and fast feedback, not the enforced gate - that's CI. Run
 `scripts/pack-doctor.sh` after cloning this pack if you're not sure whether
 this is set.
 
+## Testing
+
+This pack ships a reproducible, deterministic skill-testing program in
+[`testing/`](testing/README.md). It runs a strict A/B protocol — per skill,
+baseline (skill not loaded) vs treatment (skill loaded) trials scored on a
+rubric, plus trigger probes — to measure each skill's marginal value.
+
+- **`testing/TESTING-PLAN.md`** — the A/B protocol and per-skill test specs.
+- **`testing/SCHEMA.md`** — the JSON result schema and scoring rubric, pinned for
+  cross-agent comparability.
+- **`testing/fixtures/`** — reproducible, checksummed task seeds with
+  `GROUND-TRUTH.md` anchors (immutable; see `fixtures/SHA256SUMS`).
+- **`testing/scripts/report.py`** — regenerates per-profile `REPORT.md` and the
+  cross-profile `COMPARISON.md`.
+- **`testing/results-archive/`** — the historical single-model baseline record.
+
+The **`test-skills`** skill (`skills/test-skills/SKILL.md`) teaches any agent how
+to run the program. Four skills are out of test scope (`create-app`,
+`generate-image`, `install-skill`, `visualize`); the reasons are documented in
+`testing/README.md` and the skill itself.
+
 ## Upstream provenance
 
 This pack vendors the skills from

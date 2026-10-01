@@ -1,0 +1,14 @@
+{
+  "skill": "draw-charts",
+  "profile": "1ec63e21c30b",
+  "model": "z-ai/glm-5.3-flash",
+  "harness": "omnideck",
+  "date": "2026-10-01",
+  "trials": [
+    {"id": "t1", "task": "Which region grew fastest?", "baseline_score": 7, "treatment_score": 10, "notes": "Treatment: accent-on-answer + finding title + 3-pass render verification"},
+    {"id": "t2", "task": "Chart sales by region", "baseline_score": 7, "treatment_score": 10, "notes": "Baseline: alphabetical bars, generic title; treatment: sorted + labeled + finding title"},
+    {"id": "t3", "task": "Percent of total by region", "baseline_score": 6, "treatment_score": 10, "notes": "Baseline: PIE (4 slices); treatment: 100% stacked bar w/ denominator reasoning"}
+  ],
+  "trigger": {"positive": "pass", "negative": "pass"},
+  "totals": {"baseline_avg": 6.67, "treatment_avg": 10.0, "ratio": 1.5, "pct_of_max": 100.0, "verdict": "fail"}
+}

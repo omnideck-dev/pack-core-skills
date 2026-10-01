@@ -1,0 +1,14 @@
+{
+  "skill": "humanize-text",
+  "profile": "1ec63e21c30b",
+  "model": "z-ai/glm-5.3-flash",
+  "harness": "omnideck",
+  "date": "2026-10-01",
+  "trials": [
+    {"id": "t1", "task": "De-AI the productivity article", "baseline_score": 8, "treatment_score": 9, "notes": "Baseline kept em-dashes; treatment clean w/ honest hedging"},
+    {"id": "t2", "task": "Human-but-rough draft (overcorrection test)", "baseline_score": 5, "treatment_score": 10, "notes": "Baseline formalized; treatment PRESERVED casual register (lmk, Your call)"},
+    {"id": "t3", "task": "Technical passage w/ hedges", "baseline_score": 9, "treatment_score": 9, "notes": "Both preserve precision"}
+  ],
+  "trigger": {"positive": "pass", "negative": "pass"},
+  "totals": {"baseline_avg": 7.33, "treatment_avg": 9.33, "ratio": 1.27, "pct_of_max": 93.3, "verdict": "fail"}
+}

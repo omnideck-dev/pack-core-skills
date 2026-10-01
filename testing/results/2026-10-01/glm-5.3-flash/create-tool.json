@@ -1,0 +1,16 @@
+{
+  "skill": "create-tool",
+  "profile": "1ec63e21c30b",
+  "model": "z-ai/glm-5.3-flash",
+  "harness": "omnideck",
+  "date": "2026-10-01",
+  "trials": [
+    {"id": "t1", "task": "Text stats tool", "baseline_score": 6, "treatment_score": 10, "notes": "Baseline: partial failure handling, no docs; treatment: full error contract"},
+    {"id": "t2", "task": "CSV→JSON (existing-tools check)", "baseline_score": 5, "treatment_score": 10, "notes": "Baseline: no check, silent success on empty; treatment: checked registry+stdlib, clean errors"},
+    {"id": "t3", "task": "Config validator + idempotency", "baseline_score": 8, "treatment_score": 10, "notes": "Baseline: ad-hoc stderr; treatment: JSON error contract, parameterized"},
+    {"id": "t4", "task": "File checksums", "baseline_score": 5, "treatment_score": 10, "notes": "Baseline: raw stack trace on missing file; treatment: clean JSON error + documented params"},
+    {"id": "t5", "task": "Directory stats", "baseline_score": 4, "treatment_score": 10, "notes": "Baseline: nonexistent dir silently returned empty success!; treatment: clean error"}
+  ],
+  "trigger": {"positive": "pass", "negative": "pass"},
+  "totals": {"baseline_avg": 5.6, "treatment_avg": 10.0, "ratio": 1.79, "pct_of_max": 100.0, "verdict": "fail"}
+}

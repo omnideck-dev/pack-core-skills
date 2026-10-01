@@ -1,0 +1,14 @@
+{
+  "skill": "review-security",
+  "profile": "7908f0365989",
+  "model": "google/gemini-3.6-flash",
+  "harness": "omnideck",
+  "date": "2026-10-01",
+  "trials": [
+    {"id": "t1", "task": "Security review of users.py endpoints", "baseline_score": 4, "treatment_score": 4, "notes": "Both attribute pre-existing IDOR to the diff as High"},
+    {"id": "t2", "task": "Same", "baseline_score": 4, "treatment_score": 4, "notes": "Same"},
+    {"id": "t3", "task": "Same", "baseline_score": 4, "treatment_score": 4, "notes": "Same; treatment adds structured classes + fix-first verdict"}
+  ],
+  "trigger": {"positive": "pass", "negative": "pass"},
+  "totals": {"baseline_avg": 4.0, "treatment_avg": 4.0, "ratio": 1.0, "pct_of_max": 40.0, "verdict": "fail"}
+}

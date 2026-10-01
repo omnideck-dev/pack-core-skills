@@ -1,0 +1,16 @@
+{
+  "skill": "create-agent",
+  "profile": "1ec63e21c30b",
+  "model": "z-ai/glm-5.3-flash",
+  "harness": "omnideck",
+  "date": "2026-10-01",
+  "trials": [
+    {"id": "t1", "task": "Slack community assistant", "baseline_score": 6, "treatment_score": 10, "notes": "Baseline: one-liner prompt + browser grant unjustified; treatment: workflow+rules, minimal"},
+    {"id": "t2", "task": "Research reporter (conflicting needs)", "baseline_score": 6, "treatment_score": 10, "notes": "Baseline: write-docs misfit grant; treatment: minimal + rationale"},
+    {"id": "t3", "task": "Code review specialist + self-containment verify", "baseline_score": 7, "treatment_score": 10, "notes": "Treatment verified self-containment explicitly"},
+    {"id": "t4", "task": "CI monitor (minimal grants)", "baseline_score": 5, "treatment_score": 10, "notes": "Baseline: 4 grants for a monitor; treatment: minimal"},
+    {"id": "t5", "task": "Marketing copy assistant", "baseline_score": 7, "treatment_score": 10, "notes": "Treatment: [NEEDS] marking + banned-cliche rules"}
+  ],
+  "trigger": {"positive": "pass", "negative": "pass"},
+  "totals": {"baseline_avg": 6.2, "treatment_avg": 10.0, "ratio": 1.61, "pct_of_max": 100.0, "verdict": "fail"}
+}

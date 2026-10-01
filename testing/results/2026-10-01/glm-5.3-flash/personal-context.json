@@ -1,0 +1,14 @@
+{
+  "skill": "personal-context",
+  "profile": "1ec63e21c30b",
+  "model": "z-ai/glm-5.3-flash",
+  "harness": "omnideck",
+  "date": "2026-10-01",
+  "trials": [
+    {"id": "t1", "task": "Apply SQL-not-pandas preference + past rejection", "baseline_score": 3, "treatment_score": 10, "notes": "Baseline USED PANDAS (ignored preference AND re-proposed rejected approach); treatment cited both"},
+    {"id": "t2", "task": "Elliptical 'update it and add the other two'", "baseline_score": 7, "treatment_score": 9, "notes": "Treatment retrieved dashboard context before asking"},
+    {"id": "t3", "task": "Fresh question, irrelevant memory", "baseline_score": 10, "treatment_score": 10, "notes": "Both clean"}
+  ],
+  "trigger": {"positive": "pass", "negative": "pass"},
+  "totals": {"baseline_avg": 6.67, "treatment_avg": 9.67, "ratio": 1.45, "pct_of_max": 96.7, "verdict": "fail"}
+}

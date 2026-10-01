@@ -1,0 +1,41 @@
+{
+  "skill": "plan-learning",
+  "profile": "code_expert",
+  "model": "deepseek/deepseek-v4-flash-0731",
+  "harness": "omnideck",
+  "date": "2026-10-01",
+  "trials": [
+    {
+      "id": "t1",
+      "task": "Kubernetes 4h/wk x 8wk",
+      "baseline_score": 6,
+      "treatment_score": 9,
+      "notes": "Treatment: arithmetic, scope check, MVS 15min, review-first, dep map, cards"
+    },
+    {
+      "id": "t2",
+      "task": "MLE 6wk x 20h (over-ambitious)",
+      "baseline_score": 4,
+      "treatment_score": 10,
+      "notes": "Treatment: 'Hard Truth: requires 600-1000+ hours' + force-prioritize + 40% buffer"
+    },
+    {
+      "id": "t3",
+      "task": "Rust retry after failure",
+      "baseline_score": 7,
+      "treatment_score": 9,
+      "notes": "Treatment: failure-mode analysis + MVS 10min + flexible scheduling"
+    }
+  ],
+  "trigger": {
+    "positive": "pass",
+    "negative": "pass"
+  },
+  "totals": {
+    "baseline_avg": 5.67,
+    "treatment_avg": 9.33,
+    "ratio": 1.65,
+    "pct_of_max": 93.3,
+    "verdict": "fail"
+  }
+}

@@ -1,0 +1,14 @@
+{
+  "skill": "review-code",
+  "profile": "7908f0365989",
+  "model": "google/gemini-3.6-flash",
+  "harness": "omnideck",
+  "date": "2026-10-01",
+  "trials": [
+    {"id": "t1", "task": "Review inventory-service change (bulk_restock/fulfill_by_skus/average_stock)", "baseline_score": 8, "treatment_score": 10, "notes": "Treatment adds severity grouping, verdict, good-acknowledgment; both miss planted empty-order bug"},
+    {"id": "t2", "task": "Same", "baseline_score": 8, "treatment_score": 10, "notes": "Same pattern"},
+    {"id": "t3", "task": "Same", "baseline_score": 8, "treatment_score": 10, "notes": "Same pattern"}
+  ],
+  "trigger": {"positive": "pass", "negative": "pass"},
+  "totals": {"baseline_avg": 8.0, "treatment_avg": 10.0, "ratio": 1.25, "pct_of_max": 100.0, "verdict": "fail"}
+}

@@ -1,0 +1,14 @@
+{
+  "skill": "write-code",
+  "profile": "1ec63e21c30b",
+  "model": "z-ai/glm-5.3-flash",
+  "harness": "omnideck",
+  "date": "2026-10-01",
+  "trials": [
+    {"id": "t1", "task": "CSV summary CLI", "baseline_score": 8, "treatment_score": 10, "notes": "Baseline happy-path only; treatment also error path"},
+    {"id": "t2", "task": "Targeted edit: get_timeout()", "baseline_score": 9, "treatment_score": 10, "notes": "Treatment: read-before-edit + regression check"},
+    {"id": "t3", "task": "Flask health server + cleanup", "baseline_score": 9, "treatment_score": 9, "notes": "Both killed server + verified port free"}
+  ],
+  "trigger": {"positive": "not-run", "negative": "not-run"},
+  "totals": {"baseline_avg": 8.67, "treatment_avg": 9.67, "ratio": 1.11, "pct_of_max": 96.7, "verdict": "fail"}
+}

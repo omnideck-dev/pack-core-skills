@@ -1,0 +1,14 @@
+{
+  "skill": "research",
+  "profile": "1ec63e21c30b",
+  "model": "z-ai/glm-5.3-flash",
+  "harness": "omnideck",
+  "date": "2026-10-01",
+  "trials": [
+    {"id": "t1", "task": "Latest stable Python version", "baseline_score": 6, "treatment_score": 9, "notes": "Baseline: knowledge-only, no web; treatment: python.org w/ dates"},
+    {"id": "t2", "task": "SQLite vs PostgreSQL", "baseline_score": 7, "treatment_score": 9, "notes": "Treatment: primary docs + confidence levels"},
+    {"id": "t3", "task": "JavaScript original name (verification test)", "baseline_score": 7, "treatment_score": 10, "notes": "Treatment: primary sources + HONEST REFUSAL to guess who coined the name"}
+  ],
+  "trigger": {"positive": "pass", "negative": "pass"},
+  "totals": {"baseline_avg": 6.67, "treatment_avg": 9.33, "ratio": 1.4, "pct_of_max": 93.3, "verdict": "fail"}
+}

@@ -1,0 +1,41 @@
+{
+  "skill": "draw-charts",
+  "profile": "code_expert",
+  "model": "deepseek/deepseek-v4-flash-0731",
+  "harness": "omnideck",
+  "date": "2026-10-01",
+  "trials": [
+    {
+      "id": "t1",
+      "task": "Which region grew fastest?",
+      "baseline_score": 7,
+      "treatment_score": 9,
+      "notes": "Baseline: generic title; treatment: finding title 'West grew fastest (+17.3%)'"
+    },
+    {
+      "id": "t2",
+      "task": "Chart sales by region",
+      "baseline_score": 8,
+      "treatment_score": 9,
+      "notes": "Treatment: finding title + accent color + value labels"
+    },
+    {
+      "id": "t3",
+      "task": "Percent of total",
+      "baseline_score": 6,
+      "treatment_score": 9,
+      "notes": "Baseline: PIE (4 slices); treatment: STACKED BAR + denominator reasoning + finding title"
+    }
+  ],
+  "trigger": {
+    "positive": "pass",
+    "negative": "pass"
+  },
+  "totals": {
+    "baseline_avg": 7.0,
+    "treatment_avg": 9.0,
+    "ratio": 1.29,
+    "pct_of_max": 90.0,
+    "verdict": "fail"
+  }
+}

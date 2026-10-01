@@ -1,0 +1,42 @@
+{
+  "skill": "write-drafts",
+  "profile": "code_expert",
+  "model": "deepseek/deepseek-v4-flash-0731",
+  "harness": "omnideck",
+  "date": "2026-10-01",
+  "trials": [
+    {
+      "id": "t1",
+      "task": "Decision email w/ deadline from messy notes",
+      "baseline_score": 6,
+      "treatment_score": 9,
+      "notes": "T1-baseline very verbose + invented 'cost them a rough morning'; treatment tight"
+    },
+    {
+      "id": "t2",
+      "task": "Rewrite drafty deployment message",
+      "baseline_score": 8,
+      "treatment_score": 9,
+      "notes": "Treatment tighter, one ask"
+    },
+    {
+      "id": "t3",
+      "task": "Conference bio w/ constraints + unknowns",
+      "baseline_score": 6,
+      "treatment_score": 9,
+      "notes": "Baseline invents details; treatment marks [NEEDS:...]"
+    }
+  ],
+  "trigger": {
+    "positive": "pass",
+    "negative": "pass"
+  },
+  "totals": {
+    "baseline_avg": 6.67,
+    "treatment_avg": 9.0,
+    "ratio": 1.35,
+    "pct_of_max": 90.0,
+    "verdict": "fail"
+  },
+  "notes_protocol": "Batch ran on code_expert (deepseek-v4-flash) due to runner error; all 4 nominally-different profile batches were the same model. Records are valid deepseek-v4-flash A/B data only."
+}

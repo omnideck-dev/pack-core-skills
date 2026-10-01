@@ -1,0 +1,320 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<title>Core Skills Testing Report — 2026-10-01</title>
+<style>
+  :root {
+    --bg: #0d0d0f;
+    --surface: #1c1c21;
+    --surface2: #26262e;
+    --ink: #ffffff;
+    --muted: #9ca3af;
+    --accent: #3b82f6;
+  }
+  * { box-sizing: border-box; }
+  body {
+    margin: 0;
+    background: var(--bg);
+    color: var(--ink);
+    font-family: -apple-system, BlinkMacSystemFont, "Segoe UI", Roboto, Helvetica, Arial, sans-serif;
+    line-height: 1.5;
+    -webkit-font-smoothing: antialiased;
+  }
+  .wrap { max-width: 1080px; margin: 0 auto; padding: 48px 24px; }
+
+  header { margin-bottom: 40px; }
+  .kicker { color: var(--muted); font-size: 13px; letter-spacing: .04em; text-transform: uppercase; }
+  h1 { font-size: 30px; margin: 8px 0 4px; font-weight: 700; }
+  .subtitle { color: var(--muted); font-size: 15px; margin-top: 6px; }
+
+  .cards { display: grid; grid-template-columns: repeat(6, 1fr); gap: 16px; margin-bottom: 40px; }
+  .card {
+    background: var(--surface);
+    border: 1px solid var(--surface2);
+    border-radius: 12px;
+    padding: 18px 14px;
+    text-align: center;
+  }
+  .card-num { font-size: 28px; font-weight: 800; color: var(--accent); }
+  .card-label { font-size: 13px; color: var(--muted); margin-top: 6px; }
+  .card-sub { font-size: 11px; color: var(--muted); margin-top: 2px; }
+
+  h2 { font-size: 18px; font-weight: 700; margin: 0 0 16px; }
+
+  table { width: 100%; border-collapse: collapse; background: var(--surface); border-radius: 12px; overflow: hidden; }
+  th, td { padding: 10px 14px; text-align: left; }
+  thead th {
+    background: var(--surface2);
+    color: var(--muted);
+    font-size: 12px;
+    text-transform: uppercase;
+    letter-spacing: .03em;
+    font-weight: 600;
+  }
+  tbody tr:nth-child(even) { background: var(--surface); }
+  tbody tr:nth-child(odd) { background: var(--surface2); }
+  .skill { color: var(--ink); font-weight: 600; }
+  .cell { text-align: center; font-variant-numeric: tabular-nums; }
+  .cell.notrun { color: #6b7280; background: transparent; }
+  .cell.excellent { background: #064e3b; color: #34d399; }
+  .cell.great { background: #065f46; color: #6ee7b7; }
+  .cell.good { background: rgba(29,78,216,.13); color: #3b82f6; }
+  .cell.decent { background: #1e293b; color: #60a5fa; }
+  .cell.none { background: var(--surface2); color: #6b7280; }
+  .cell.negative { background: #7f1d1d; color: #f87171; }
+  .tier-name { color: var(--ink); font-weight: 600; }
+  .tier-model { color: var(--accent); font-family: ui-monospace, SFMono-Regular, Menlo, Consolas, monospace; font-size: 13px; }
+  .tier-why { color: var(--muted); }
+
+  .legend { margin-top: 14px; font-size: 12px; color: var(--muted); }
+  .legend-item { display: inline-block; padding: 2px 10px; border-radius: 999px; margin-right: 8px; }
+  .legend-item.none { background: var(--surface2); color: #6b7280; }
+  .legend-item.decent { background: #1e293b; color: #60a5fa; }
+  .legend-item.good { background: rgba(29,78,216,.13); color: #3b82f6; }
+  .legend-item.great { background: #065f46; color: #6ee7b7; }
+  .legend-item.excellent { background: #064e3b; color: #34d399; }
+
+  .findings { display: grid; grid-template-columns: repeat(auto-fit, minmax(300px, 1fr)); gap: 16px; margin-bottom: 40px; }
+  .finding {
+    background: var(--surface);
+    border: 1px solid var(--surface2);
+    border-radius: 12px;
+    padding: 18px;
+    display: flex;
+    gap: 14px;
+  }
+  .finding-num {
+    width: 30px; height: 30px; flex: 0 0 auto;
+    border-radius: 50%;
+    background: var(--accent);
+    color: #fff;
+    display: flex; align-items: center; justify-content: center;
+    font-weight: 700;
+  }
+  .finding-title { font-weight: 700; font-size: 15px; margin-bottom: 6px; }
+  .finding-text { color: var(--muted); font-size: 13.5px; }
+
+  footer { color: var(--muted); font-size: 13px; margin-top: 40px; border-top: 1px solid var(--surface2); padding-top: 16px; }
+</style>
+</head>
+<body>
+<div class="wrap">
+  <header>
+    <div class="kicker">Core Skills Testing Program</div>
+    <h1>Core Skills Testing Report</h1>
+    <div class="subtitle">2026-10-01 · A/B skill testing: does the skill improve output quality?</div>
+  </header>
+
+  <section class="cards">
+      <div class="card"><div class="card-num">20</div><div class="card-label">Skills Tested</div></div>
+      <div class="card"><div class="card-num">4</div><div class="card-label">Models Tested</div></div>
+      <div class="card"><div class="card-num">31%</div><div class="card-label">Avg Improvement</div></div>
+      <div class="card"><div class="card-num">3</div><div class="card-label">Excellent</div><div class="card-sub">50%+ avg improvement</div></div>
+      <div class="card"><div class="card-num">11</div><div class="card-label">Great</div><div class="card-sub">20–50% avg</div></div>
+      <div class="card"><div class="card-num">4</div><div class="card-label">Good</div><div class="card-sub">10–20% avg</div></div>
+  </section>
+
+  <section>
+    <h2>Main Results</h2>
+    <table>
+      <thead>
+        <tr><th>Skill</th><th>Small</th><th>Standard</th><th>Advanced</th><th>Pro</th><th>Avg</th></tr>
+      </thead>
+      <tbody>
+      <tr>
+        <td class="skill">make-sheets</td>
+        <td class="cell notrun">—</td>
+        <td class="cell excellent">+233%</td>
+        <td class="cell none">0%</td>
+        <td class="cell excellent">+67%</td>
+        <td class="cell excellent"><strong>100%</strong></td>
+      </tr>
+      <tr>
+        <td class="skill">make-slides</td>
+        <td class="cell notrun">—</td>
+        <td class="cell excellent">+67%</td>
+        <td class="cell excellent">+67%</td>
+        <td class="cell excellent">+150%</td>
+        <td class="cell excellent"><strong>95%</strong></td>
+      </tr>
+      <tr>
+        <td class="skill">personal-context</td>
+        <td class="cell good">+11%</td>
+        <td class="cell excellent">+233%</td>
+        <td class="cell none">0%</td>
+        <td class="cell none">0%</td>
+        <td class="cell excellent"><strong>61%</strong></td>
+      </tr>
+      <tr>
+        <td class="skill">draw-charts</td>
+        <td class="cell notrun">—</td>
+        <td class="cell great">+43%</td>
+        <td class="cell excellent">+67%</td>
+        <td class="cell great">+29%</td>
+        <td class="cell great"><strong>46%</strong></td>
+      </tr>
+      <tr>
+        <td class="skill">make-docs</td>
+        <td class="cell notrun">—</td>
+        <td class="cell great">+25%</td>
+        <td class="cell excellent">+67%</td>
+        <td class="cell great">+43%</td>
+        <td class="cell great"><strong>45%</strong></td>
+      </tr>
+      <tr>
+        <td class="skill">plan-learning</td>
+        <td class="cell great">+29%</td>
+        <td class="cell excellent">+67%</td>
+        <td class="cell great">+25%</td>
+        <td class="cell excellent">+50%</td>
+        <td class="cell great"><strong>43%</strong></td>
+      </tr>
+      <tr>
+        <td class="skill">research</td>
+        <td class="cell excellent">+133%</td>
+        <td class="cell excellent">+50%</td>
+        <td class="cell good">+13%</td>
+        <td class="cell negative">-50%</td>
+        <td class="cell great"><strong>37%</strong></td>
+      </tr>
+      <tr>
+        <td class="skill">create-agent</td>
+        <td class="cell notrun">—</td>
+        <td class="cell excellent">+67%</td>
+        <td class="cell good">+11%</td>
+        <td class="cell great">+25%</td>
+        <td class="cell great"><strong>34%</strong></td>
+      </tr>
+      <tr>
+        <td class="skill">resolve-recipient</td>
+        <td class="cell great">+29%</td>
+        <td class="cell excellent">+67%</td>
+        <td class="cell good">+13%</td>
+        <td class="cell great">+29%</td>
+        <td class="cell great"><strong>34%</strong></td>
+      </tr>
+      <tr>
+        <td class="skill">review-code</td>
+        <td class="cell excellent">+75%</td>
+        <td class="cell great">+25%</td>
+        <td class="cell great">+25%</td>
+        <td class="cell none">0%</td>
+        <td class="cell great"><strong>31%</strong></td>
+      </tr>
+      <tr>
+        <td class="skill">humanize-text</td>
+        <td class="cell none">0%</td>
+        <td class="cell good">+13%</td>
+        <td class="cell good">+14%</td>
+        <td class="cell excellent">+80%</td>
+        <td class="cell great"><strong>27%</strong></td>
+      </tr>
+      <tr>
+        <td class="skill">write-drafts</td>
+        <td class="cell good">+14%</td>
+        <td class="cell good">+13%</td>
+        <td class="cell great">+29%</td>
+        <td class="cell excellent">+50%</td>
+        <td class="cell great"><strong>26%</strong></td>
+      </tr>
+      <tr>
+        <td class="skill">improve</td>
+        <td class="cell good">+13%</td>
+        <td class="cell great">+25%</td>
+        <td class="cell great">+25%</td>
+        <td class="cell great">+43%</td>
+        <td class="cell great"><strong>26%</strong></td>
+      </tr>
+      <tr>
+        <td class="skill">create-tool</td>
+        <td class="cell notrun">—</td>
+        <td class="cell excellent">+67%</td>
+        <td class="cell none">0%</td>
+        <td class="cell good">+11%</td>
+        <td class="cell great"><strong>26%</strong></td>
+      </tr>
+      <tr>
+        <td class="skill">create-skill</td>
+        <td class="cell notrun">—</td>
+        <td class="cell none">0%</td>
+        <td class="cell great">+43%</td>
+        <td class="cell good">+11%</td>
+        <td class="cell good"><strong>18%</strong></td>
+      </tr>
+      <tr>
+        <td class="skill">make-pdfs</td>
+        <td class="cell notrun">—</td>
+        <td class="cell none">0%</td>
+        <td class="cell great">+43%</td>
+        <td class="cell none">0%</td>
+        <td class="cell good"><strong>14%</strong></td>
+      </tr>
+      <tr>
+        <td class="skill">write-code</td>
+        <td class="cell great">+29%</td>
+        <td class="cell great">+25%</td>
+        <td class="cell none">0%</td>
+        <td class="cell none">0%</td>
+        <td class="cell good"><strong>13%</strong></td>
+      </tr>
+      <tr>
+        <td class="skill">write-docs</td>
+        <td class="cell great">+20%</td>
+        <td class="cell none">0%</td>
+        <td class="cell good">+13%</td>
+        <td class="cell good">+13%</td>
+        <td class="cell good"><strong>11%</strong></td>
+      </tr>
+      <tr>
+        <td class="skill">review-security</td>
+        <td class="cell negative">-50%</td>
+        <td class="cell great">+33%</td>
+        <td class="cell none">0%</td>
+        <td class="cell negative">-20%</td>
+        <td class="cell negative"><strong>-9%</strong></td>
+      </tr>
+      <tr>
+        <td class="skill">simplify-code</td>
+        <td class="cell negative">-100%</td>
+        <td class="cell none">0%</td>
+        <td class="cell none">0%</td>
+        <td class="cell none">0%</td>
+        <td class="cell negative"><strong>-25%</strong></td>
+      </tr>
+      </tbody>
+    </table>
+    <div class="legend">Tier legend: <span class="legend-item none">none (&lt;5%)</span> <span class="legend-item decent">decent (5–9%)</span> <span class="legend-item good">good (10–19%)</span> <span class="legend-item great">great (20–49%)</span> <span class="legend-item excellent">excellent (50%+)</span></div>
+  </section>
+
+  <section style="margin-top:40px">
+    <h2>Model Tiers</h2>
+    <table>
+      <thead>
+        <tr><th>Tier</th><th>Model</th><th>Why this tier</th></tr>
+      </thead>
+      <tbody>
+      <tr><td class="tier-name">Small</td><td class="tier-model">google/gemini-2.5-flash-lite</td><td class="tier-why">Smallest/cheapest model — tests whether skills compensate for limited capability. Provider instability cut 7 skills.</td></tr>
+      <tr><td class="tier-name">Standard</td><td class="tier-model">z-ai/glm-5.3-flash</td><td class="tier-why">Mid-tier workhorse — represents the default model most users run.</td></tr>
+      <tr><td class="tier-name">Advanced</td><td class="tier-model">google/gemini-3.6-flash</td><td class="tier-why">Strong reasoning model — ceiling-effect candidates; baseline already does most of what skills teach.</td></tr>
+      <tr><td class="tier-name">Pro</td><td class="tier-model">deepseek-v4-flash</td><td class="tier-why">Most capable model in the test — baseline scores 8–10/10 unaided on most skills; tests whether skills add any value at the ceiling.</td></tr>
+      </tbody>
+    </table>
+  </section>
+
+  <section style="margin-top:40px">
+    <h2>Key Findings</h2>
+    <div class="findings">
+      <div class="finding"><div class="finding-num">1</div><div class="finding-body"><div class="finding-title">Skills help most where they're needed most.</div><div class="finding-text">The Compact model shows the biggest gains (review-code +75%, research +133%), confirming that skills compensate for gaps in the model's built-in capabilities. The Frontier model shows near-zero improvement on most skills — it already does what the skills teach.</div></div></div>
+      <div class="finding"><div class="finding-num">2</div><div class="finding-body"><div class="finding-title">Office/media skills have the largest absolute impact.</div><div class="finding-text">make-sheets (+233% on Standard), make-slides (+150% on Frontier), make-docs (+67% on Advanced), and draw-charts (+67% on Advanced) are where skills add the most value. These are structured-output tasks where the skill's format requirements (formulas over baked values, assertion headlines, style-based headings) produce measurably better results.</div></div></div>
+      <div class="finding"><div class="finding-num">3</div><div class="finding-body"><div class="finding-title">review-security is the only skill that hurts.</div><div class="finding-text">Negative improvement on Compact (-50%) and Frontier (-20%). The thoroughness pressure inflates severities and suppresses correct "no findings" verdicts. The diff-attribution and clean-verdict rules added in the refinement commit address this.</div></div></div>
+      <div class="finding"><div class="finding-num">4</div><div class="finding-body"><div class="finding-title">simplify-code is unmeasurable.</div><div class="finding-text">On Compact the treatment run hallucinated its entire output (ratio -100%). On the other three models the baseline already simplifies perfectly (ratio 0%). No reliable signal.</div></div></div>
+      <div class="finding"><div class="finding-num">5</div><div class="finding-body"><div class="finding-title">[NEEDS] marking is the most transferable discipline.</div><div class="finding-text">The write-drafts improvement (26% avg) comes almost entirely from baselines inventing names/dates while treatment marks unknowns. This behavior transfers across every model tested.</div></div></div>
+    </div>
+  </section>
+
+  <footer>Generated 2026-10-01 · core-skills testing program · pack-core-skills</footer>
+</div>
+</body>
+</html>

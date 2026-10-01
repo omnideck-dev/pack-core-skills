@@ -1,0 +1,14 @@
+{
+  "skill": "write-drafts",
+  "profile": "0c6e7e6c9e12",
+  "model": "google/gemini-2.5-flash-lite",
+  "harness": "omnideck",
+  "date": "2026-10-01",
+  "trials": [
+    {"id": "t1", "task": "Decision email w/ deadline", "baseline_score": 7, "treatment_score": 8, "notes": "Treatment tighter, decision framed first"},
+    {"id": "t2", "task": "Rewrite drafty message", "baseline_score": 8, "treatment_score": 8, "notes": "Both tight, one ask"},
+    {"id": "t3", "task": "Conference bio w/ unknowns", "baseline_score": 4, "treatment_score": 6, "notes": "Baseline INVENTED name 'Alex' + interests; treatment used [NEEDS] marks but violated third-person constraint"}
+  ],
+  "trigger": {"positive": "not-run", "negative": "not-run"},
+  "totals": {"baseline_avg": 6.33, "treatment_avg": 7.33, "ratio": 1.16, "pct_of_max": 73.3, "verdict": "fail"}
+}

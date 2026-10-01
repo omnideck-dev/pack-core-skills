@@ -1,0 +1,55 @@
+{
+  "skill": "create-agent",
+  "profile": "code_expert",
+  "model": "deepseek/deepseek-v4-flash-0731",
+  "harness": "omnideck",
+  "date": "2026-10-01",
+  "trials": [
+    {
+      "id": "t1",
+      "task": "Slack community assistant",
+      "baseline_score": 8,
+      "treatment_score": 10,
+      "notes": "Treatment: 1 grant (least privilege) + richer prompt"
+    },
+    {
+      "id": "t2",
+      "task": "Research reporter",
+      "baseline_score": 8,
+      "treatment_score": 10,
+      "notes": "Treatment: 2 grants (least-privilege) + richer prompt"
+    },
+    {
+      "id": "t3",
+      "task": "Code review specialist",
+      "baseline_score": 8,
+      "treatment_score": 10,
+      "notes": "Treatment: 2 read-only grants + self-containment verified"
+    },
+    {
+      "id": "t4",
+      "task": "CI monitor",
+      "baseline_score": 10,
+      "treatment_score": 10,
+      "notes": "Baseline already minimal (2 grants); treatment adds richer prompt"
+    },
+    {
+      "id": "t5",
+      "task": "Marketing copywriter",
+      "baseline_score": 7,
+      "treatment_score": 10,
+      "notes": "Baseline: 5 grants! Treatment: 1 grant"
+    }
+  ],
+  "trigger": {
+    "positive": "pass",
+    "negative": "pass"
+  },
+  "totals": {
+    "baseline_avg": 8.2,
+    "treatment_avg": 10.0,
+    "ratio": 1.22,
+    "pct_of_max": 100.0,
+    "verdict": "fail"
+  }
+}

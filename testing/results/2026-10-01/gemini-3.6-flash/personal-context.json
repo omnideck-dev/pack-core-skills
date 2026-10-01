@@ -1,0 +1,14 @@
+{
+  "skill": "personal-context",
+  "profile": "7908f0365989",
+  "model": "google/gemini-3.6-flash",
+  "harness": "omnideck",
+  "date": "2026-10-01",
+  "trials": [
+    {"id": "t1", "task": "Apply SQL-not-pandas preference", "baseline_score": 9, "treatment_score": 9, "notes": "Both use sqlite3"},
+    {"id": "t2", "task": "Elliptical 'update it and add the other two'", "baseline_score": 7, "treatment_score": 9, "notes": "Baseline asked WITHOUT retrieving dashboard context; treatment retrieved + asked"},
+    {"id": "t3", "task": "Fresh question, irrelevant memory", "baseline_score": 10, "treatment_score": 10, "notes": "Both clean, no retrieval theater"}
+  ],
+  "trigger": {"positive": "pass", "negative": "pass"},
+  "totals": {"baseline_avg": 8.67, "treatment_avg": 9.33, "ratio": 1.08, "pct_of_max": 93.3, "verdict": "fail"}
+}

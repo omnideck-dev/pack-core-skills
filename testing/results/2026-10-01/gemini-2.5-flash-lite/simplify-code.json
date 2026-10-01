@@ -1,0 +1,14 @@
+{
+  "skill": "simplify-code",
+  "profile": "0c6e7e6c9e12",
+  "model": "google/gemini-2.5-flash-lite",
+  "harness": "omnideck",
+  "date": "2026-10-01",
+  "trials": [
+    {"id": "t1", "task": "Simplify 3 added methods", "baseline_score": 6, "treatment_score": 0, "notes": "Treatment hallucinated entire report (invented APIs, no edits on disk, false test claim)"},
+    {"id": "t2", "task": "Same", "baseline_score": 0, "treatment_score": 0, "notes": "Baseline: empty output. Treatment: OVERWROTE service.py with invented placeholder code (destroyed fixture copy), then blamed the fixture for the resulting ImportError"},
+    {"id": "t3", "task": "Same", "baseline_score": 7, "treatment_score": 9, "notes": "Both real, verified on disk: treatment found all seeds incl. comprehension"}
+  ],
+  "trigger": {"positive": "not-run", "negative": "not-run"},
+  "totals": {"baseline_avg": 4.33, "treatment_avg": 3.0, "ratio": 0.69, "pct_of_max": 30.0, "verdict": "fail"}
+}

@@ -1,0 +1,41 @@
+{
+  "skill": "write-docs",
+  "profile": "code_expert",
+  "model": "deepseek/deepseek-v4-flash-0731",
+  "harness": "omnideck",
+  "date": "2026-10-01",
+  "trials": [
+    {
+      "id": "t1",
+      "task": "README for csvsum.py (verify commands)",
+      "baseline_score": 8,
+      "treatment_score": 9,
+      "notes": "Both verified commands; treatment adds quickstart front-loading + error table"
+    },
+    {
+      "id": "t2",
+      "task": "API reference for config.py",
+      "baseline_score": 9,
+      "treatment_score": 10,
+      "notes": "Treatment adds error-behavior section (KeyError vs .get) + regeneration note"
+    },
+    {
+      "id": "t3",
+      "task": "Correct stale doc claims",
+      "baseline_score": 9,
+      "treatment_score": 9,
+      "notes": "Both caught --output + dedup falsehoods"
+    }
+  ],
+  "trigger": {
+    "positive": "pass",
+    "negative": "pass"
+  },
+  "totals": {
+    "baseline_avg": 8.67,
+    "treatment_avg": 9.33,
+    "ratio": 1.08,
+    "pct_of_max": 93.3,
+    "verdict": "fail"
+  }
+}

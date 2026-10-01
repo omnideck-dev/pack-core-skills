@@ -1,0 +1,14 @@
+{
+  "skill": "write-drafts",
+  "profile": "1ec63e21c30b",
+  "model": "z-ai/glm-5.3-flash",
+  "harness": "omnideck",
+  "date": "2026-10-01",
+  "trials": [
+    {"id": "t1", "task": "Decision email w/ deadline", "baseline_score": 8, "treatment_score": 9, "notes": "Treatment: deadline in subject, name marks"},
+    {"id": "t2", "task": "Rewrite drafty message", "baseline_score": 8, "treatment_score": 9, "notes": "Treatment tighter + alternate"},
+    {"id": "t3", "task": "Conference bio w/ unknowns", "baseline_score": 5, "treatment_score": 9, "notes": "Baseline INVENTED passion/hobbies; treatment marks [NEEDS: org]"}
+  ],
+  "trigger": {"positive": "pass", "negative": "pass"},
+  "totals": {"baseline_avg": 7.0, "treatment_avg": 9.0, "ratio": 1.29, "pct_of_max": 90.0, "verdict": "fail"}
+}

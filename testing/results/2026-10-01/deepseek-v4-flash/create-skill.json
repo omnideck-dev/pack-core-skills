@@ -1,0 +1,55 @@
+{
+  "skill": "create-skill",
+  "profile": "code_expert",
+  "model": "deepseek/deepseek-v4-flash-0731",
+  "harness": "omnideck",
+  "date": "2026-10-01",
+  "trials": [
+    {
+      "id": "t1",
+      "task": "Server-status procedure",
+      "baseline_score": 9,
+      "treatment_score": 10,
+      "notes": "Treatment: 5-step workflow + rules + anti-patterns"
+    },
+    {
+      "id": "t2",
+      "task": "Over-broad 'skill for coding'",
+      "baseline_score": 10,
+      "treatment_score": 10,
+      "notes": "Baseline narrowed to Python Unit Test Gen! Treatment narrowed to review-code"
+    },
+    {
+      "id": "t3",
+      "task": "PR review overlap",
+      "baseline_score": 10,
+      "treatment_score": 10,
+      "notes": "Baseline created differentiated review-pull-request (delegates to review-code); treatment said reuse existing \u2014 both valid"
+    },
+    {
+      "id": "t4",
+      "task": "Weekly report skill",
+      "baseline_score": 9,
+      "treatment_score": 10,
+      "notes": "Treatment: NO tool categories (least privilege)"
+    },
+    {
+      "id": "t5",
+      "task": "SQL formatting",
+      "baseline_score": 9,
+      "treatment_score": 10,
+      "notes": "Treatment: 10-step workflow + anti-patterns"
+    }
+  ],
+  "trigger": {
+    "positive": "pass",
+    "negative": "pass"
+  },
+  "totals": {
+    "baseline_avg": 9.4,
+    "treatment_avg": 10.0,
+    "ratio": 1.06,
+    "pct_of_max": 100.0,
+    "verdict": "fail"
+  }
+}

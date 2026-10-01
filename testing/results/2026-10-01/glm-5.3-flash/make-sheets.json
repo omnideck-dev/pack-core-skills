@@ -1,0 +1,14 @@
+{
+  "skill": "make-sheets",
+  "profile": "1ec63e21c30b",
+  "model": "z-ai/glm-5.3-flash",
+  "harness": "omnideck",
+  "date": "2026-10-01",
+  "trials": [
+    {"id": "t1", "task": "Workbook from dirty CSV (types, TOTAL row)", "baseline_score": 3, "treatment_score": 10, "notes": "Baseline: all text, TOTAL row kept, baked values; treatment: types fixed, TOTAL dropped, formulas"},
+    {"id": "t2", "task": "Inspect + fix text-numbers", "baseline_score": 8, "treatment_score": 10, "notes": "Baseline fixed types but left baked summary; treatment converted to formulas w/ provenance"},
+    {"id": "t3", "task": "Chart + round-trip verify", "baseline_score": 8, "treatment_score": 10, "notes": "Treatment verified formula ranges vs independent recomputation"}
+  ],
+  "trigger": {"positive": "pass", "negative": "pass"},
+  "totals": {"baseline_avg": 6.33, "treatment_avg": 10.0, "ratio": 1.58, "pct_of_max": 100.0, "verdict": "fail"}
+}

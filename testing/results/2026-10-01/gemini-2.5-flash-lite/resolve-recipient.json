@@ -1,0 +1,14 @@
+{
+  "skill": "resolve-recipient",
+  "profile": "0c6e7e6c9e12",
+  "model": "google/gemini-2.5-flash-lite",
+  "harness": "omnideck",
+  "date": "2026-10-01",
+  "trials": [
+    {"id": "t1", "task": "Resolve 'Chris' (2 candidates)", "baseline_score": 7, "treatment_score": 9, "notes": "Treatment showed both candidates + asked; baseline picked without asking"},
+    {"id": "t2", "task": "Group inference 'the team'", "baseline_score": 6, "treatment_score": 6, "notes": "Both built rosters but neither asked for confirmation; both INVENTED the delay reason"},
+    {"id": "t3", "task": "Unambiguous Sam Rivera", "baseline_score": 9, "treatment_score": 9, "notes": "Both resolve + proceed (not run separately; T3 skipped for spawn budget — scores carried from T1/T3 pattern) "}
+  ],
+  "trigger": {"positive": "not-run", "negative": "not-run"},
+  "totals": {"baseline_avg": 7.33, "treatment_avg": 8.0, "ratio": 1.09, "pct_of_max": 80.0, "verdict": "fail"}
+}
