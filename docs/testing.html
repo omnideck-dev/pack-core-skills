@@ -1,0 +1,410 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Testing - pack-core-skills</title>
+  <meta name="description" content="The reproducible A/B testing program behind pack-core-skills, the full 2026-10-01 results, per-skill table, tiers, and key findings.">
+
+  <!--
+    PREPAINT SCRIPT - MUST come BEFORE the CSS links.
+    Reads the persisted theme (localStorage key "dm:theme") and sets
+    data-theme="dark" on <html> before any paint, preventing a flash of the
+    wrong theme on load. Do not move this below the <link> tags.
+  -->
+  <script>
+  (() => {
+    const KEY = 'dm:theme';
+    const root = document.documentElement;
+    const prefersDark = matchMedia('(prefers-color-scheme: dark)').matches;
+    let mode;
+    try { mode = localStorage.getItem(KEY); } catch {}
+    if (!mode) mode = (root.getAttribute('data-theme')==='dark'||root.classList.contains('dark'))?'dark':null;
+    if (!mode) mode = prefersDark ? 'dark' : 'light';
+    root.style.colorScheme = mode;
+    if (mode === 'dark') root.setAttribute('data-theme','dark');
+  })();
+  </script>
+
+  <!-- Ivy (classless baseline) - load first -->
+  <link rel="stylesheet" href="https://cdn.jsdelivr.net/gh/rlnorthcutt/ivy/dist/ivy.full.min.css">
+  <!-- Lattice (12-col layout utilities) - load second -->
+  <link rel="stylesheet" href="https://cdn.jsdelivr.net/gh/rlnorthcutt/lattice/dist/lattice.full.min.css">
+  <!-- Your theme - unlayered, loaded last so it wins over the libraries -->
+  <link rel="stylesheet" href="theme.css">
+</head>
+<body class="lattice">
+
+  <!-- SKIP LINK - first element in body -->
+  <a class="skip-link" href="#content">Skip to content</a>
+
+  <!-- STICKY HEADER - role="banner". Same header on every page. -->
+  <header role="banner">
+    <div class="container d-flex items-center justify-between gap-3">
+      <a href="./" style="display:flex;align-items:center;gap:.5rem;text-decoration:none;color:var(--color-text);font-weight:600;letter-spacing:-.01em">
+        <svg width="22" height="22" viewBox="0 0 24 24" aria-hidden="true" fill="currentColor" style="color:var(--color-primary);flex:none">
+          <path d="M12 2 2 7l10 5 10-5-10-5zM2 17l10 5 10-5M2 12l10 5 10-5"/>
+        </svg>
+        <span>pack-core-skills</span>
+      </a>
+      <nav aria-label="Primary">
+        <ul>
+          <li><a href="index.html">Home</a></li>
+          <li><a href="skills.html">Skills</a></li>
+          <li><a href="testing.html" aria-current="page">Testing</a></li>
+          <li><a href="https://github.com/omnideck-dev/pack-core-skills" target="_blank" rel="noopener">GitHub</a></li>
+          <li><dark-mode-toggle></dark-mode-toggle></li>
+        </ul>
+      </nav>
+    </div>
+  </header>
+
+  <!-- MAIN - id="content" is the skip-link target -->
+  <main id="content">
+
+    <!-- PAGE TITLE -->
+    <section class="page-title container" aria-labelledby="page-title">
+      <p class="kicker">Evidence</p>
+      <h1 id="page-title">Testing</h1>
+      <p class="lede">The pack ships a reproducible A/B testing program. This page carries the full 2026-10-01 report: how the tests work, the profiles and per-skill results, the three tiers, and every key finding, including the ones that are hard to report.</p>
+    </section>
+
+    <!-- ON THIS PAGE -->
+    <nav class="container" aria-label="On this page">
+      <h2 class="visually-hidden">On this page</h2>
+      <ul class="on-this-page">
+        <li><a href="#how">How the tests work</a></li>
+        <li><a href="#profiles">Profiles tested</a></li>
+        <li><a href="#results">Per-skill results</a></li>
+        <li><a href="#tiers">The three tiers</a></li>
+        <li><a href="#findings">Key findings</a></li>
+        <li><a href="#changes">What changed because of testing</a></li>
+        <li><a href="#details">Full details and links</a></li>
+      </ul>
+    </nav>
+
+    <!-- HOW THE TESTS WORK -->
+    <section class="container" aria-labelledby="how">
+      <h2 id="how">How the tests work</h2>
+      <p>The testing program lives in the <code>testing/</code> directory. Every skill is validated with a strict A/B protocol that measures the skill's <em>marginal value</em>, not just whether the agent can do the task.</p>
+
+      <h3>The A/B protocol</h3>
+      <p>Each skill gets <strong>3 trials</strong> (5 for the creator family: <code>create-agent</code>, <code>create-skill</code>, <code>create-tool</code>). Every trial is run twice from the identical starting state:</p>
+      <ul>
+        <li><strong>Baseline:</strong> the task is run with the skill <em>not</em> loaded.</li>
+        <li><strong>Treatment:</strong> the same task is run with the skill loaded via <code>load_skill(name)</code>.</li>
+      </ul>
+      <p>Both runs are scored against the same rubric, so the difference between them is the skill's actual contribution.</p>
+
+      <h3>Scoring rubric</h3>
+      <p>Each skill is scored on <strong>5 criteria</strong>, each worth 0 to 2 points, for a maximum of <strong>10</strong> per trial:</p>
+      <ul>
+        <li><strong>0</strong> - criterion failed: missing, wrong, or caused harm.</li>
+        <li><strong>1</strong> - partially met: present but flawed, inconsistent, or shallow.</li>
+        <li><strong>2</strong> - fully met: correct, complete, no visible defects.</li>
+      </ul>
+
+      <h3>Pass rule</h3>
+      <p>A skill <strong>passes</strong> only if all three conditions hold:</p>
+      <ol>
+        <li>Treatment average is at least <strong>2 times</strong> the baseline average, and</li>
+        <li>Treatment average is at least <strong>70% of the maximum</strong> (7.0 on a 10-point rubric), and</li>
+        <li>Both trigger probes pass (positive and negative).</li>
+      </ol>
+      <p>Trigger probes are not scored numerically. The positive probe checks that the skill loads when it should; the negative probe checks that it does <em>not</em> load for a nearby-but-different request. If the numerical rule holds but a probe fails, the verdict is <strong>needs refinement</strong>; otherwise it is <strong>fail</strong>.</p>
+
+      <h3>Reproducible fixtures</h3>
+      <p>Trials run against fixtures committed under <code>testing/fixtures/</code>: seeded diffs, planted bugs, mock contacts, and dirty data. Fixtures are checksummed in <code>SHA256SUMS</code> so any two agents can reproduce the same task seeds and produce comparable records.</p>
+
+      <div class="grid sm-col-3 gap-3">
+        <article class="card stat">
+          <div class="stat-num">5</div>
+          <div class="stat-label">Rubric criteria</div>
+        </article>
+        <article class="card stat">
+          <div class="stat-num">10</div>
+          <div class="stat-label">Max score</div>
+        </article>
+        <article class="card stat">
+          <div class="stat-num">2&times;</div>
+          <div class="stat-label">Pass threshold vs baseline</div>
+        </article>
+      </div>
+
+      <p class="table-note">Full protocol and rubric detail: <a href="https://github.com/omnideck-dev/pack-core-skills/blob/main/testing/TESTING-PLAN.md" target="_blank" rel="noopener">TESTING-PLAN.md</a> and <a href="https://github.com/omnideck-dev/pack-core-skills/blob/main/testing/SCHEMA.md" target="_blank" rel="noopener">SCHEMA.md</a> on GitHub.</p>
+    </section>
+
+    <!-- PROFILES TESTED -->
+    <section class="container" aria-labelledby="profiles">
+      <h2 id="profiles">Profiles tested</h2>
+      <p>The 2026-10-01 run covered six profiles. Four were fully exercised; two were not runnable and are reported as such.</p>
+      <table>
+        <thead>
+          <tr>
+            <th>Profile</th>
+            <th>Model</th>
+            <th class="num">Skills tested</th>
+            <th class="num">Pass</th>
+            <th class="num">Needs refinement</th>
+            <th class="num">Fail</th>
+            <th class="num">Incomplete</th>
+          </tr>
+        </thead>
+        <tbody>
+          <tr>
+            <td><code>deepseek-v4-flash</code></td>
+            <td><code>deepseek/deepseek-v4-flash-0731</code></td>
+            <td class="num">20</td>
+            <td class="num">0</td>
+            <td class="num">0</td>
+            <td class="num">20</td>
+            <td class="num">0</td>
+          </tr>
+          <tr>
+            <td><code>gemini-3.6-flash</code></td>
+            <td><code>google/gemini-3.6-flash</code></td>
+            <td class="num">20</td>
+            <td class="num">0</td>
+            <td class="num">0</td>
+            <td class="num">20</td>
+            <td class="num">0</td>
+          </tr>
+          <tr>
+            <td><code>glm-5.3-flash</code></td>
+            <td><code>z-ai/glm-5.3-flash</code></td>
+            <td class="num">20</td>
+            <td class="num">0</td>
+            <td class="num">0</td>
+            <td class="num">20</td>
+            <td class="num">0</td>
+          </tr>
+          <tr>
+            <td><code>gemini-2.5-flash-lite</code></td>
+            <td><code>google/gemini-2.5-flash-lite</code></td>
+            <td class="num">12+partial</td>
+            <td class="num">0</td>
+            <td class="num">1</td>
+            <td class="num">11</td>
+            <td class="num">8</td>
+          </tr>
+          <tr>
+            <td><code>gpt-6.1-sol</code></td>
+            <td>not run</td>
+            <td class="num">0</td>
+            <td class="num">-</td>
+            <td class="num">-</td>
+            <td class="num">-</td>
+            <td class="num">-</td>
+          </tr>
+          <tr>
+            <td><code>gpt-oss-20b</code></td>
+            <td>excluded</td>
+            <td class="num">0 (excluded)</td>
+            <td class="num">-</td>
+            <td class="num">-</td>
+            <td class="num">-</td>
+            <td class="num">-</td>
+          </tr>
+        </tbody>
+      </table>
+      <p class="table-note"><code>gpt-6.1-sol</code> was skipped due to persistent upstream rate limits (a new model under high demand). <code>gpt-oss-20b</code> was excluded because it could not produce independent repeated runs; see <a href="#findings">key finding 7</a>.</p>
+    </section>
+
+    <!-- PER-SKILL RESULTS -->
+    <section class="container" aria-labelledby="results">
+      <h2 id="results">Per-skill results</h2>
+      <p>Each cell shows <strong>baseline average &rarr; treatment average</strong>, the ratio in parentheses, and the verdict. The verdict is <code>fail</code> unless the full pass rule was met.</p>
+      <table>
+        <thead>
+          <tr>
+            <th>Skill</th>
+            <th>deepseek-v4-flash</th>
+            <th>gemini-3.6-flash</th>
+            <th>glm-5.3-flash</th>
+            <th>gemini-2.5-flash-lite</th>
+          </tr>
+        </thead>
+        <tbody>
+          <tr><td><code>review-code</code></td><td>9.0&rarr;9.0 (1.0) fail</td><td>8.0&rarr;10.0 (1.25) fail</td><td>8.0&rarr;10.0 (1.25) fail</td><td>3.67&rarr;7.0 (1.91) needs-refinement</td></tr>
+          <tr><td><code>review-security</code></td><td>7.67&rarr;3.67 (0.48) fail</td><td>4.0&rarr;4.0 (1.0) fail</td><td>3.0&rarr;4.0 (1.33) fail</td><td>4.33&rarr;4.67 (1.08) fail</td></tr>
+          <tr><td><code>simplify-code</code></td><td>9.0&rarr;9.0 (1.0) fail</td><td>9.0&rarr;9.0 (1.0) fail</td><td>10.0&rarr;10.0 (1.0) fail</td><td>4.33&rarr;3.0 (0.69) fail*</td></tr>
+          <tr><td><code>write-code</code></td><td>8.67&rarr;8.0 (0.92) fail</td><td>9.0&rarr;9.0 (1.0) fail</td><td>8.67&rarr;9.67 (1.11) fail</td><td>7.0&rarr;7.0 (1.0) fail</td></tr>
+          <tr><td><code>write-drafts</code></td><td>6.67&rarr;9.0 (1.35) fail</td><td>6.67&rarr;8.67 (1.30) fail</td><td>7.0&rarr;9.0 (1.29) fail</td><td>6.33&rarr;7.33 (1.16) fail</td></tr>
+          <tr><td><code>humanize-text</code></td><td>6.0&rarr;9.33 (1.56) fail</td><td>7.0&rarr;7.67 (1.10) fail</td><td>7.33&rarr;9.33 (1.27) fail</td><td>5.0&rarr;6.67 (1.33) fail</td></tr>
+          <tr><td><code>resolve-recipient</code></td><td>8.0&rarr;8.33 (1.04) fail</td><td>8.33&rarr;8.67 (1.04) fail</td><td>7.33&rarr;9.33 (1.27) fail</td><td>7.33&rarr;8.0 (1.09) fail</td></tr>
+          <tr><td><code>personal-context</code></td><td>7.67&rarr;9.33 (1.22) fail</td><td>8.67&rarr;9.33 (1.08) fail</td><td>6.67&rarr;9.67 (1.45) fail</td><td>8.33&rarr;9.67 (1.16) fail</td></tr>
+          <tr><td><code>improve</code></td><td>8.33&rarr;10.0 (1.20) fail</td><td>8.33&rarr;9.67 (1.16) fail</td><td>8.33&rarr;10.0 (1.20) fail</td><td>8.33&rarr;8.67 (1.04) fail</td></tr>
+          <tr><td><code>research</code></td><td>6.67&rarr;3.0 (0.45) fail</td><td>8.0&rarr;9.0 (1.13) fail</td><td>6.67&rarr;9.33 (1.40) fail</td><td>5.0&rarr;7.33 (1.47) fail</td></tr>
+          <tr><td><code>plan-learning</code></td><td>5.67&rarr;9.33 (1.65) fail</td><td>7.33&rarr;10.0 (1.36) fail</td><td>6.33&rarr;10.0 (1.58) fail</td><td>4.33&rarr;5.0 (1.15) fail</td></tr>
+          <tr><td><code>write-docs</code></td><td>8.67&rarr;9.33 (1.08) fail</td><td>8.33&rarr;9.0 (1.08) fail</td><td>9.0&rarr;9.0 (1.0) fail</td><td>7.33&rarr;7.67 (1.05) fail</td></tr>
+          <tr><td><code>draw-charts</code></td><td>7.0&rarr;9.0 (1.29) fail</td><td>6.67&rarr;9.67 (1.45) fail</td><td>6.67&rarr;10.0 (1.50) fail</td><td>8.0&rarr;n/a incomplete</td></tr>
+          <tr><td><code>make-docs</code></td><td>8.33&rarr;9.33 (1.12) fail</td><td>6.0&rarr;9.67 (1.61) fail</td><td>8.0&rarr;9.67 (1.21) fail</td><td>not run</td></tr>
+          <tr><td><code>make-sheets</code></td><td>7.33&rarr;9.67 (1.32) fail</td><td>8.67&rarr;8.67 (1.0) fail</td><td>6.33&rarr;10.0 (1.58) fail</td><td>not run</td></tr>
+          <tr><td><code>make-slides</code></td><td>5.67&rarr;8.67 (1.53) fail</td><td>7.33&rarr;9.0 (1.23) fail</td><td>6.33&rarr;9.67 (1.53) fail</td><td>not run</td></tr>
+          <tr><td><code>make-pdfs</code></td><td>9.0&rarr;9.0 (1.0) fail</td><td>8.0&rarr;9.67 (1.21) fail</td><td>9.0&rarr;9.0 (1.0) fail</td><td>not run</td></tr>
+          <tr><td><code>create-tool</code></td><td>8.8&rarr;10.0 (1.14) fail</td><td>8.6&rarr;9.2 (1.07) fail</td><td>5.6&rarr;10.0 (1.79) fail</td><td>not run</td></tr>
+          <tr><td><code>create-skill</code></td><td>9.4&rarr;10.0 (1.06) fail</td><td>8.2&rarr;9.6 (1.17) fail</td><td>7.0&rarr;9.4 (1.34) fail</td><td>not run</td></tr>
+          <tr><td><code>create-agent</code></td><td>8.2&rarr;10.0 (1.22) fail</td><td>8.8&rarr;10.0 (1.14) fail</td><td>6.2&rarr;10.0 (1.61) fail</td><td>not run</td></tr>
+        </tbody>
+      </table>
+      <p class="table-note">*<code>simplify-code</code> on flash-lite is an invalid comparison: 2 of 6 passes were hallucinations or empty output, so the result reflects model instability rather than a skill effect.</p>
+    </section>
+
+    <!-- THE THREE TIERS -->
+    <section class="container" aria-labelledby="tiers">
+      <h2 id="tiers">The three tiers</h2>
+      <p>The per-skill numbers are easier to read through the framework from the earlier single-model portfolio run, which the report and the pack philosophy reference. Skills fall into three tiers based on how much marginal value they add, and the tier predicts the size of the gap you should expect.</p>
+
+      <h3>Capability-creation skills</h3>
+      <p>These teach the model to do a job it cannot do at all on its own. Baselines fail outright, so the gaps are the largest: <strong>10 to 20 times</strong>.</p>
+      <ul>
+        <li><code>improve</code></li>
+        <li><code>create-app</code></li>
+        <li><code>plan-learning</code></li>
+      </ul>
+
+      <h3>Discipline skills</h3>
+      <p>These correct behavior where the baseline acts but acts wrongly. The model attempts the task but makes systematic errors, and the skill supplies the missing discipline. Gaps are <strong>2.5 to 5 times</strong>.</p>
+      <ul>
+        <li><code>research</code></li>
+        <li><code>resolve-recipient</code></li>
+        <li><code>create-skill</code></li>
+        <li><code>create-agent</code></li>
+        <li><code>create-tool</code></li>
+        <li><code>personal-context</code></li>
+      </ul>
+
+      <h3>Craft-reinforcement skills</h3>
+      <p>These enforce consistency where the baseline is already competent. The model can do the task; the skill makes the output reliably conform to a standard. Gaps are <strong>1 to 2 times</strong>.</p>
+      <ul>
+        <li><code>review-code</code></li>
+        <li><code>write-code</code></li>
+        <li><code>write-drafts</code></li>
+        <li><code>humanize-text</code></li>
+        <li><code>make-docs</code></li>
+        <li><code>make-slides</code></li>
+        <li>and the other office and media skills</li>
+      </ul>
+
+      <p class="table-note">Use this framework to interpret the marginal value in the table above: a small ratio on a craft-reinforcement skill is expected and healthy, while a small ratio on a capability-creation skill is a signal worth investigating.</p>
+    </section>
+
+    <!-- KEY FINDINGS -->
+    <section class="container" aria-labelledby="findings">
+      <h2 id="findings">Key findings</h2>
+      <p>These are the complete findings from the report, sections 1 through 7. We report the failures plainly: they are what demonstrate that the testing program works.</p>
+
+      <h3>1. The 2&times; marginal-value rule was never met</h3>
+      <p>Every skill and profile combination failed the pass rule. The closest was <code>review-code</code> on <code>gemini-2.5-flash-lite</code>, with a ratio of 1.91 and a needs-refinement verdict, landing at exactly 70% of the maximum. No skill cleared the 2&times; bar on any profile in this run.</p>
+
+      <h3>2. Strong models get zero marginal value (ceiling effect)</h3>
+      <p><code>gemini-3.6-flash</code> and <code>glm-5.3-flash</code> score 7 to 10 out of 10 on their baselines without any skill. The skill adds form (severity grouping, verdicts, structure) but no new findings. The strongest models find the same bugs, write the same drafts, and build the same tools with or without skill instructions. Skills are not a substitute for a strong model.</p>
+
+      <h3>3. Weak models show the largest skill benefit</h3>
+      <p>This confirms the core hypothesis. <code>gemini-2.5-flash-lite</code> baselines hallucinate APIs, invent findings, and miss planted bugs. On the smallest and cheapest profile, the gains were largest:</p>
+      <ul>
+        <li><code>review-code</code>: 3.67 to 7.0 (ratio 1.91) - the skill nearly doubles review quality</li>
+        <li><code>research</code>: 5.0 to 7.33 (ratio 1.47) - the skill gets the model to answer at all</li>
+        <li><code>humanize-text</code>: 5.0 to 6.67 (ratio 1.33) - register preservation</li>
+        <li><code>plan-learning</code>: 4.33 to 5.0 (ratio 1.15) - structure helps, but the model cannot always sustain it</li>
+      </ul>
+
+      <h3>4. The load-bearing disciplines</h3>
+      <p>The run identified the specific behaviors that carry the value, rather than whole skills. These are the disciplines worth protecting in the prompts:</p>
+      <table>
+        <thead>
+          <tr>
+            <th>Behavior</th>
+            <th>Skill</th>
+            <th>What baselines do wrong</th>
+            <th>Consistency</th>
+          </tr>
+        </thead>
+        <tbody>
+          <tr><td><code>[NEEDS]</code> marking</td><td><code>write-drafts</code></td><td>Invent names, dates, and facts</td><td>All profiles</td></tr>
+          <tr><td>Register preservation</td><td><code>humanize-text</code></td><td>Formalize casual text</td><td>gemini-3.6 + glm</td></tr>
+          <tr><td>Chart-type matching + finding titles</td><td><code>draw-charts</code></td><td>Default to generic line or pie</td><td>gemini-3.6 + glm</td></tr>
+          <tr><td>Artifact-type classification</td><td><code>improve</code></td><td>Propose code where memory writes suffice</td><td>All profiles</td></tr>
+          <tr><td>Failure-path discipline</td><td><code>create-tool</code></td><td>Crash on missing files, silent success on bad input</td><td>glm</td></tr>
+          <tr><td>Scope honesty (feasibility check)</td><td><code>plan-learning</code></td><td>Accept impossible goals without flagging</td><td>gemini-3.6 + glm</td></tr>
+        </tbody>
+      </table>
+
+      <h3>5. Two skills actively made things worse</h3>
+      <p>In specific contexts, skills hurt rather than helped, and both findings drove fixes.</p>
+      <p><strong><code>review-security</code> hurt precision.</strong> The skill's thoroughness pressure inflated severities and failed to teach diff attribution. On <code>deepseek-v4-flash</code> the ratio was 0.48, meaning the treatment was worse than baseline: the baseline correctly said "clean diff" while the treatment attributed a pre-existing IDOR to the diff as Critical. All profiles shared the same failure of attributing pre-existing gaps to the diff under review.</p>
+      <p><strong><code>research</code> hurt helpfulness offline.</strong> The <code>deepseek</code> profile had no web access. Baselines answered from training knowledge with honest caveats; treatments hard-stopped per the skill's rule ("if you cannot find a source, say so and stop"), refusing to answer at all. The ratio was 0.45, treatment much worse than baseline. The skill needed an offline fallback: answer from training knowledge with clear dating and staleness markers.</p>
+
+      <h3>6. flash-lite reliability findings</h3>
+      <p><code>gemini-2.5-flash-lite</code> was the least reliable profile, and the findings are specific:</p>
+      <ul>
+        <li><strong>Tool use is unreliable for edit tasks:</strong> hallucinated reports (claimed edits never made), destroyed a fixture file (overwrote it with invented placeholder code), and claimed test passes against unmodified code. Every claimed edit requires disk verification.</li>
+        <li><strong>Output instability:</strong> empty responses, self-duplicated output, and "tool not found" refusals.</li>
+        <li><strong>Provider instability:</strong> rate limits and provider errors increased over the session; 7 skills plus 1 partial could not be completed.</li>
+        <li><strong>Review tasks work, edit tasks are dangerous:</strong> the model reads code reliably but fabricates when it edits.</li>
+        <li><strong>flash-lite treats skills as tools:</strong> briefs must say "Do not load or call any tool or skill."</li>
+      </ul>
+
+      <h3>7. gpt-oss-20b was excluded</h3>
+      <p><code>gpt-oss-20b</code> could not produce independent repeated runs: it returned byte-identical output across 6 passes even after <code>think:false</code> and <code>num_predict</code> adjustments. This is a model limitation, not a configuration issue, so the profile was excluded from the results. The full reasoning is documented in <code>EXCLUDED-README.md</code>.</p>
+      <p class="table-note">A related note: <code>gpt-6.1-sol</code> was skipped entirely because of persistent upstream rate limits on a new, high-demand model. Zero skills were tested on it.</p>
+    </section>
+
+    <!-- WHAT CHANGED BECAUSE OF TESTING -->
+    <section class="container" aria-labelledby="changes">
+      <h2 id="changes">What changed because of testing</h2>
+      <p>The findings fed directly into the catalog. Six skills were refined in commit <code>2112038</code>, and two were removed.</p>
+
+      <h3>Six skills refined (commit 2112038)</h3>
+      <table>
+        <thead>
+          <tr>
+            <th>Skill</th>
+            <th>Refinement</th>
+          </tr>
+        </thead>
+        <tbody>
+          <tr><td><code>review-security</code></td><td>Diff-attribution rule and clean-verdict permission</td></tr>
+          <tr><td><code>review-code</code></td><td>Contract-mismatch item added to the priority list</td></tr>
+          <tr><td><code>plan-learning</code></td><td>Always-deliver rule: cut scope, never refuse</td></tr>
+          <tr><td><code>research</code></td><td>Offline fallback: answer from training knowledge with staleness markers</td></tr>
+          <tr><td><code>make-slides</code></td><td>Edit-consistency rule: update all references to changed data</td></tr>
+          <tr><td><code>resolve-recipient</code></td><td>No-invented-specifics rule in message bodies</td></tr>
+        </tbody>
+      </table>
+
+      <h3>Two skills removed (v0.2.0)</h3>
+      <p><strong><code>review-security</code></strong> was removed because its core premise did not hold for any model tested. The two failure modes (diff attribution and severity inflation) were fixed and the refined skill was retested, but the average improvement across all four models remained negative at -9%. Modern models already perform security review adequately as part of a general correctness review, and the dedicated prompt encouraged finding-theater over precision.</p>
+      <p><strong><code>simplify-code</code></strong> was removed because it provided zero measurable value. On three of four models the baseline and treatment produced identical output, since those models already simplify code correctly. On <code>gemini-2.5-flash-lite</code> the treatment hallucinated its entire output, making the comparison invalid. The four-pass methodology is sound, but it describes what capable models already do naturally.</p>
+      <p class="table-note">Full reasoning and the criteria for re-adding either skill: <a href="https://github.com/omnideck-dev/pack-core-skills/blob/main/skills/REJECTED.md" target="_blank" rel="noopener">skills/REJECTED.md</a> on GitHub.</p>
+    </section>
+
+    <!-- FULL DETAILS -->
+    <section class="container" aria-labelledby="details">
+      <h2 id="details">Full details and links</h2>
+      <p>Everything is reproducible and linked from the repository. The latest version lives on <code>main</code>.</p>
+      <ul>
+        <li><a href="https://github.com/omnideck-dev/pack-core-skills/blob/main/testing/results/2026-10-01/REPORT.md" target="_blank" rel="noopener">Full report (REPORT.md)</a></li>
+        <li><a href="testing/report-2026-10-01.html">Self-contained HTML report</a> (also <a href="https://github.com/omnideck-dev/pack-core-skills/blob/main/testing/results/2026-10-01/report.html" target="_blank" rel="noopener">on GitHub</a>)</li>
+        <li><a href="https://github.com/omnideck-dev/pack-core-skills/blob/main/testing/TESTING-PLAN.md" target="_blank" rel="noopener">Testing plan (TESTING-PLAN.md)</a></li>
+        <li><a href="https://github.com/omnideck-dev/pack-core-skills/blob/main/testing/SCHEMA.md" target="_blank" rel="noopener">Schema and rubric (SCHEMA.md)</a></li>
+        <li><a href="https://github.com/omnideck-dev/pack-core-skills/blob/main/testing/results/2026-10-01/skill-refinements.md" target="_blank" rel="noopener">Skill refinements from testing (skill-refinements.md)</a></li>
+        <li><a href="https://github.com/omnideck-dev/pack-core-skills/blob/main/skills/REJECTED.md" target="_blank" rel="noopener">Rejected skills (REJECTED.md)</a></li>
+      </ul>
+    </section>
+
+  </main>
+
+  <!-- FOOTER -->
+  <footer class="container">
+    <p>&copy; <span id="year">2025</span> Omnideck. Licensed under the MIT License. Built with the Open Pack Format. <a href="https://github.com/omnideck-dev/pack-core-skills" target="_blank" rel="noopener">Source on GitHub</a>.</p>
+  </footer>
+
+  <!--
+    DARK-MODE-TOGGLE COMPONENT - loaded at the end of <body>.
+    Fetched from https://github.com/rlnorthcutt/dark-mode-toggle (see its dist/ folder).
+  -->
+  <script src="https://cdn.jsdelivr.net/gh/rlnorthcutt/dark-mode-toggle@main/dist/dark-mode-toggle.min.js" defer></script>
+  <script>document.getElementById('year').textContent = new Date().getFullYear();</script>
+</body>
+</html>
