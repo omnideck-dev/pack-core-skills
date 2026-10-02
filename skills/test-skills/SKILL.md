@@ -1,6 +1,8 @@
 ---
 name: test-skills
 description: Run the reproducible A/B skill-testing program for the pack-core-skills catalog — per-skill baseline-vs-treatment trials scored on a rubric, trigger probes, and report generation. Use when asked to test, validate, benchmark, or run the testing program on this pack's skills.
+metadata:
+  tool_categories: coding
 ---
 
 # test-skills — Run the skill-testing program

@@ -6,11 +6,12 @@ compatibility: Requires git (for repo sources), Python 3.10+ (for archive extrac
 metadata:
   author: omnideck-dev
   version: "1.0"
+  tool_categories: coding,webfetch,browser
 ---
 
 # install-skill — Install Agent Skills from any source
 
-You install Agent Skills (the agentskills.io standard: a directory with a SKILL.md file) from whatever source the user provides. You inspect before installing, confirm before acting, and install to two locations: the universal format at ~/skills/ and the Omnideck format in the skills state dir.
+You install Agent Skills (the agentskills.io standard: a directory with a SKILL.md file) from whatever source the user provides. You inspect before installing, confirm before acting, and install to two locations in the same standard format: the portable copy at ~/skills/ and Omnideck's live skills dir.
 
 ## The spec
 
@@ -133,7 +134,9 @@ Install to ~/skills/<name>/ and register with Omnideck?
 
 ## Step 5 — Install
 
-On confirmation, write to two locations:
+Omnideck loads Agent Skills directly — there is no separate proprietary
+format to convert into. On confirmation, write to two locations, both in
+the same standard SKILL.md shape:
 
 ### 5a. Universal format: ~/skills/<name>/
 
@@ -141,30 +144,27 @@ Copy the entire skill directory to ~/skills/<name>/ (create ~/skills/ if needed)
 
 If ~/skills/<name>/ already exists, ask: overwrite, rename, or skip?
 
-### 5b. Omnideck format: skills state dir
+### 5b. Omnideck live skills dir
 
-Convert the SKILL.md to an Omnideck SkillRecord and write it to the skills state dir (the `OMNIDECK_SKILLS_DIR` env var, default `/var/lib/omnideck/skills/`) as `<name>.json`:
+Copy the same skill directory into Omnideck's live skills dir (the
+`OMNIDECK_SKILLS_DIR` env var, default `/var/lib/omnideck/skills/`), as
+`<name>/SKILL.md` (plus any scripts/references/assets) — unchanged from the
+~/skills/ copy, except for one addition: if the frontmatter's `metadata`
+has no `tool_categories` key, add one set to the comma-separated list of
+categories mapped in step 3 (Omnideck reads this key to grant tools; a
+skill that already defines it — e.g. from a prior Omnideck-aware source —
+keeps its own value unless the user asked to change it).
 
-```json
-{
-  "id": "<name from frontmatter>",
-  "name": "<name from frontmatter>",
-  "description": "<description from frontmatter>",
-  "prompt": "<the full markdown body after the frontmatter>",
-  "tool_categories": ["<mapped categories from step 3>"]
-}
-```
-
-The body becomes the prompt. The frontmatter metadata is not stored (Omnideck's SkillRecord doesn't carry it), but the body can reference the scripts at their ~/skills/ path if needed.
-
-If a skill with the same name already exists in the state dir, the loader will reject it (names must be unique). Offer to overwrite or use a modified name.
+If a skill with the same name already exists in the live dir, the loader
+will reject it (names must be unique). Offer to overwrite or use a
+modified name.
 
 ### 5c. Verify
 
 - Confirm ~/skills/<name>/SKILL.md exists and parses
-- Confirm the SkillRecord JSON exists and validates (id == name, kebab-case, known tool categories)
+- Confirm the live-dir copy exists, parses, and has a `tool_categories` value in its `metadata`
 - Confirm the skill appears in the catalog (list_available_skills or the HTTP API)
-- If scripts were installed, confirm they exist at ~/skills/<name>/scripts/
+- If scripts were installed, confirm they exist at both copies' `scripts/`
 
 ## Step 6 — Report
 
@@ -173,7 +173,7 @@ Tell the user:
 - When it will be available (immediately for Omnideck; the ~/skills copy is for portability)
 - What tools the skill grants
 - Any caveats from the inspection
-- How to remove it later (delete both files)
+- How to remove it later (delete both directories)
 
 ## Rules
 
@@ -182,6 +182,6 @@ Tell the user:
 3. **No default source.** Ask the user where to install from.
 4. **Offer create-skill as the alternative.** If the user can't find a source, suggest building the skill instead.
 5. **Flag suspicious content.** Network calls, subprocess, eval, obfuscated code — surface these clearly.
-6. **Preserve the spec format.** ~/skills/ copy keeps SKILL.md + scripts/ intact for portability.
-7. **Convert faithfully.** The Omnideck SkillRecord's prompt gets the full SKILL.md body, not a summary.
+6. **Preserve the spec format everywhere.** Both copies keep SKILL.md + scripts/ intact — never convert to a proprietary format.
+7. **Add tool_categories, don't invent a schema.** The only Omnideck-specific addition is one frontmatter metadata key; everything else stays standard.
 8. **Clean up temp files** after installation.
