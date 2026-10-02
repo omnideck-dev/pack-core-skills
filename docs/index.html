@@ -1,0 +1,178 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>pack-core-skills - The core foundation every knowledge worker needs</title>
+  <meta name="description" content="A portable kit of 23 general-purpose skills for creation, review, writing, research, and office formats. Open Pack Format, harness-agnostic, tested honestly.">
+
+  <!--
+    PREPAINT SCRIPT - MUST come BEFORE the CSS links.
+    Reads the persisted theme (localStorage key "dm:theme") and sets
+    data-theme="dark" on <html> before any paint, preventing a flash of the
+    wrong theme on load. Do not move this below the <link> tags.
+  -->
+  <script>
+  (() => {
+    const KEY = 'dm:theme';
+    const root = document.documentElement;
+    const prefersDark = matchMedia('(prefers-color-scheme: dark)').matches;
+    let mode;
+    try { mode = localStorage.getItem(KEY); } catch {}
+    if (!mode) mode = (root.getAttribute('data-theme')==='dark'||root.classList.contains('dark'))?'dark':null;
+    if (!mode) mode = prefersDark ? 'dark' : 'light';
+    root.style.colorScheme = mode;
+    if (mode === 'dark') root.setAttribute('data-theme','dark');
+  })();
+  </script>
+
+  <!-- Ivy (classless baseline) - load first -->
+  <link rel="stylesheet" href="https://cdn.jsdelivr.net/gh/rlnorthcutt/ivy/dist/ivy.full.min.css">
+  <!-- Lattice (12-col layout utilities) - load second -->
+  <link rel="stylesheet" href="https://cdn.jsdelivr.net/gh/rlnorthcutt/lattice/dist/lattice.full.min.css">
+  <!-- Your theme - unlayered, loaded last so it wins over the libraries -->
+  <link rel="stylesheet" href="theme.css">
+</head>
+<body class="lattice">
+
+  <!-- SKIP LINK - first element in body -->
+  <a class="skip-link" href="#content">Skip to content</a>
+
+  <!-- STICKY HEADER - role="banner". Same header on every page. -->
+  <header role="banner">
+    <div class="container d-flex items-center justify-between gap-3">
+      <a href="./" style="display:flex;align-items:center;gap:.5rem;text-decoration:none;color:var(--color-text);font-weight:600;letter-spacing:-.01em">
+        <svg width="22" height="22" viewBox="0 0 24 24" aria-hidden="true" fill="currentColor" style="color:var(--color-primary);flex:none">
+          <path d="M12 2 2 7l10 5 10-5-10-5zM2 17l10 5 10-5M2 12l10 5 10-5"/>
+        </svg>
+        <span>pack-core-skills</span>
+      </a>
+      <nav aria-label="Primary">
+        <ul>
+          <li><a href="index.html" aria-current="page">Home</a></li>
+          <li><a href="skills.html">Skills</a></li>
+          <li><a href="testing.html">Testing</a></li>
+          <li><a href="https://github.com/omnideck-dev/pack-core-skills" target="_blank" rel="noopener">GitHub</a></li>
+          <li><dark-mode-toggle></dark-mode-toggle></li>
+        </ul>
+      </nav>
+    </div>
+  </header>
+
+  <!-- MAIN - id="content" is the skip-link target -->
+  <main id="content">
+
+    <!-- HERO -->
+    <section class="hero container" aria-labelledby="hero-title">
+      <p class="kicker">Open Pack Format &middot; 23 general-purpose skills</p>
+      <h1 id="hero-title">The core foundation every knowledge worker needs</h1>
+      <p class="lede">A portable kit of 23 general-purpose skills for creation, review, writing, research, and office formats. They give any AI agent the working skills a knowledge worker relies on, in a format any harness can load.</p>
+      <div class="btn-group">
+        <a class="btn" data-variant="primary" data-size="lg" href="skills.html">See the skills</a>
+        <a class="btn" data-variant="outline" data-size="lg" href="https://github.com/omnideck-dev/pack-core-skills" target="_blank" rel="noopener">View on GitHub</a>
+      </div>
+    </section>
+
+    <!-- WHY IT HELPS -->
+    <section class="container" aria-labelledby="why-title">
+      <h2 id="why-title">Why this pack exists</h2>
+      <p>The pack exists to provide the core foundation every knowledge worker needs, and to augment smaller, more affordable models where testing shows skills matter most.</p>
+      <p>We test that claim rather than assert it. The pack ships a reproducible A/B testing program that measures each skill's marginal value: baseline (no skill) versus treatment (skill loaded), scored on a fixed rubric. The results are honest about where skills help and where they do not.</p>
+      <div class="grid sm-col-3 gap-3">
+        <article class="card">
+          <header><h3>Strong models are already near the ceiling</h3></header>
+          <p>Capable models score close to the maximum without any skill, so adding one changes little. Skills are not a substitute for a strong model.</p>
+        </article>
+        <article class="card">
+          <header><h3>Weaker models gain the most</h3></header>
+          <p>On smaller, cheaper models the gains are largest. Code review quality nearly doubled on gemini-2.5-flash-lite, from a baseline of 3.67 to 7.0 out of 10 with the skill loaded.</p>
+        </article>
+        <article class="card">
+          <header><h3>Skills are tiered by what they add</h3></header>
+          <p>An earlier single-model run sorted skills by the size of the gap they close: capability-creation skills (the baseline could not do the job at all, 10 to 20 times the gap), discipline skills (the baseline acted but acted wrongly, 2.5 to 5 times), and craft-reinforcement skills (1 to 2 times, consistency rather than ability).</p>
+        </article>
+      </div>
+      <p>We also report the failures. Two skills were removed after testing showed they added no value or actively hurt results. The testing page documents all of it, including the numbers.</p>
+    </section>
+
+    <!-- SKILL CATEGORIES -->
+    <section class="container" aria-labelledby="categories-title">
+      <h2 id="categories-title">The 23 skills, by purpose</h2>
+      <p>Each skill is a plain <code>SKILL.md</code> any Agent Skills compatible harness can load. They group by primary purpose.</p>
+      <div class="grid sm-col-2 lg-col-3 gap-3">
+
+        <article class="card">
+          <header><h3>Create &amp; automate <span class="chip">9</span></h3></header>
+          <p>create-agent, create-app, create-skill, create-tool, improve, install-skill, visualize, draw-charts, write-code</p>
+        </article>
+
+        <article class="card">
+          <header><h3>Write &amp; communicate <span class="chip">5</span></h3></header>
+          <p>write-drafts, write-docs, humanize-text, make-docs, make-slides</p>
+        </article>
+
+        <article class="card">
+          <header><h3>Research &amp; learn <span class="chip">3</span></h3></header>
+          <p>research, plan-learning, personal-context</p>
+        </article>
+
+        <article class="card">
+          <header><h3>Review quality <span class="chip">1</span></h3></header>
+          <p>review-code</p>
+        </article>
+
+        <article class="card">
+          <header><h3>Office formats <span class="chip">2</span></h3></header>
+          <p>make-sheets, make-pdfs</p>
+        </article>
+
+        <article class="card">
+          <header><h3>Connect &amp; verify <span class="chip">2</span></h3></header>
+          <p>resolve-recipient, generate-image</p>
+        </article>
+
+        <article class="card">
+          <header><h3>Test the pack <span class="chip">1</span></h3></header>
+          <p>test-skills</p>
+        </article>
+
+      </div>
+      <p><a href="skills.html">See every skill with its description and categories &rarr;</a></p>
+    </section>
+
+    <!-- THIS IS AN OPF PACK -->
+    <section class="container" aria-labelledby="opf-title">
+      <h2 id="opf-title">This is an Open Pack Format pack</h2>
+      <p>OPF is an open, harness-agnostic pack format: a <code>manifest.json</code> plus embedded files, installed, updated, and removed with zero native harness code. The spec lives in the <a href="https://github.com/omnideck-dev/opf-core" target="_blank" rel="noopener">opf-core repository</a>.</p>
+      <h3>Install</h3>
+      <p>Install this pack with the <code>pack-install</code> skill, or by pointing any Agent Skills installer at <code>skills/&lt;name&gt;/SKILL.md</code>. There is no <code>install.sh</code>, because none is needed: each skill is a plain <code>SKILL.md</code>, so the generic Agent Skills install step is all any harness requires.</p>
+      <h3>Validate</h3>
+      <p>Validate the pack with <code>scripts/validate-pack.sh</code>. A local pre-commit hook and CI scanning run the same checks on every change.</p>
+      <p>See the <a href="https://github.com/omnideck-dev/pack-core-skills/blob/main/README.md" target="_blank" rel="noopener">repository README</a> for the full install and validation details.</p>
+    </section>
+
+    <!-- CTA / LINK STRIP -->
+    <section class="container" aria-labelledby="cta-title">
+      <h2 id="cta-title">Explore the pack</h2>
+      <div class="btn-group">
+        <a class="btn" data-variant="primary" data-size="lg" href="https://github.com/omnideck-dev/pack-core-skills" target="_blank" rel="noopener">View the repo on GitHub</a>
+        <a class="btn" data-variant="outline" data-size="lg" href="skills.html">See the skills</a>
+        <a class="btn" data-variant="outline" data-size="lg" href="testing.html">See the test results</a>
+      </div>
+    </section>
+
+  </main>
+
+  <!-- FOOTER -->
+  <footer class="container">
+    <p>&copy; <span id="year">2025</span> Omnideck. Licensed under the MIT License. Built with the Open Pack Format. <a href="https://github.com/omnideck-dev/pack-core-skills" target="_blank" rel="noopener">Source on GitHub</a>.</p>
+  </footer>
+
+  <!--
+    DARK-MODE-TOGGLE COMPONENT - loaded at the end of <body>.
+    Fetched from https://github.com/rlnorthcutt/dark-mode-toggle (see its dist/ folder).
+  -->
+  <script src="https://cdn.jsdelivr.net/gh/rlnorthcutt/dark-mode-toggle@main/dist/dark-mode-toggle.min.js" defer></script>
+  <script>document.getElementById('year').textContent = new Date().getFullYear();</script>
+</body>
+</html>

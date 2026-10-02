@@ -1,0 +1,261 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Skills - pack-core-skills</title>
+  <meta name="description" content="All 23 skills in the pack-core-skills catalog, with descriptions, tool categories, and links to each SKILL.md.">
+
+  <!--
+    PREPAINT SCRIPT - MUST come BEFORE the CSS links.
+    Reads the persisted theme (localStorage key "dm:theme") and sets
+    data-theme="dark" on <html> before any paint, preventing a flash of the
+    wrong theme on load. Do not move this below the <link> tags.
+  -->
+  <script>
+  (() => {
+    const KEY = 'dm:theme';
+    const root = document.documentElement;
+    const prefersDark = matchMedia('(prefers-color-scheme: dark)').matches;
+    let mode;
+    try { mode = localStorage.getItem(KEY); } catch {}
+    if (!mode) mode = (root.getAttribute('data-theme')==='dark'||root.classList.contains('dark'))?'dark':null;
+    if (!mode) mode = prefersDark ? 'dark' : 'light';
+    root.style.colorScheme = mode;
+    if (mode === 'dark') root.setAttribute('data-theme','dark');
+  })();
+  </script>
+
+  <!-- Ivy (classless baseline) - load first -->
+  <link rel="stylesheet" href="https://cdn.jsdelivr.net/gh/rlnorthcutt/ivy/dist/ivy.full.min.css">
+  <!-- Lattice (12-col layout utilities) - load second -->
+  <link rel="stylesheet" href="https://cdn.jsdelivr.net/gh/rlnorthcutt/lattice/dist/lattice.full.min.css">
+  <!-- Your theme - unlayered, loaded last so it wins over the libraries -->
+  <link rel="stylesheet" href="theme.css">
+</head>
+<body class="lattice">
+
+  <!-- SKIP LINK - first element in body -->
+  <a class="skip-link" href="#content">Skip to content</a>
+
+  <!-- STICKY HEADER - role="banner". Same header on every page. -->
+  <header role="banner">
+    <div class="container d-flex items-center justify-between gap-3">
+      <a href="./" style="display:flex;align-items:center;gap:.5rem;text-decoration:none;color:var(--color-text);font-weight:600;letter-spacing:-.01em">
+        <svg width="22" height="22" viewBox="0 0 24 24" aria-hidden="true" fill="currentColor" style="color:var(--color-primary);flex:none">
+          <path d="M12 2 2 7l10 5 10-5-10-5zM2 17l10 5 10-5M2 12l10 5 10-5"/>
+        </svg>
+        <span>pack-core-skills</span>
+      </a>
+      <nav aria-label="Primary">
+        <ul>
+          <li><a href="index.html">Home</a></li>
+          <li><a href="skills.html" aria-current="page">Skills</a></li>
+          <li><a href="testing.html">Testing</a></li>
+          <li><a href="https://github.com/omnideck-dev/pack-core-skills" target="_blank" rel="noopener">GitHub</a></li>
+          <li><dark-mode-toggle></dark-mode-toggle></li>
+        </ul>
+      </nav>
+    </div>
+  </header>
+
+  <!-- MAIN - id="content" is the skip-link target -->
+  <main id="content">
+
+    <!-- PAGE TITLE -->
+    <section class="page-title container" aria-labelledby="page-title">
+      <p class="kicker">Catalog</p>
+      <h1 id="page-title">The 23 skills</h1>
+      <p class="lede">Every skill in the pack, with its description and the tool categories it grants. Each is a plain <code>SKILL.md</code> in the standard Agent Skills format.</p>
+    </section>
+
+    <!-- CALL OUT: removed skills -->
+    <section class="container" aria-labelledby="callout-title">
+      <div class="callout" data-tone="info">
+        <p><strong>Two skills were removed in v0.2.0.</strong> <code>review-security</code> and <code>simplify-code</code> were dropped after multi-model A/B testing showed they provided no marginal value or actively hurt results. The pack keeps only skills that earn their place, per the candor-about-limits principle. The reasoning is documented in <a href="https://github.com/omnideck-dev/pack-core-skills/blob/main/skills/REJECTED.md" target="_blank" rel="noopener">skills/REJECTED.md</a>.</p>
+      </div>
+    </section>
+
+    <!-- SKILLS GRID -->
+    <section class="container" aria-label="Skills list">
+      <div class="grid sm-col-2 lg-col-3 gap-3">
+
+        <article class="card skill-card">
+          <header><h2>create-agent</h2></header>
+          <p>Create reusable agent profiles that bundle a persona (system prompt), skill grants, model, and inference parameters. Use when the user asks for a specialized agent or repeatedly assembles the same setup by hand.</p>
+          <p><span class="chip">coding</span><span class="chip">memory</span></p>
+          <footer><a href="https://github.com/omnideck-dev/pack-core-skills/blob/main/skills/create-agent/SKILL.md" target="_blank" rel="noopener">View SKILL.md &rarr;</a></footer>
+        </article>
+
+        <article class="card skill-card">
+          <header><h2>create-app</h2></header>
+          <p>Create and manage Omnideck Custom Apps: self-contained apps with a manifest, a web frontend, optional backend actions, and data persistence. Use when the user asks for an app, a dashboard, or a tool with a UI.</p>
+          <p><span class="chip">coding</span></p>
+          <footer><a href="https://github.com/omnideck-dev/pack-core-skills/blob/main/skills/create-app/SKILL.md" target="_blank" rel="noopener">View SKILL.md &rarr;</a></footer>
+        </article>
+
+        <article class="card skill-card">
+          <header><h2>create-skill</h2></header>
+          <p>Create high-quality, well-scoped skills: loadable bundles of a prompt plus tool categories. Gathers requirements, drafts the skill record, validates scope and naming, installs it, and verifies it loads.</p>
+          <p><span class="chip">coding</span><span class="chip">memory</span></p>
+          <footer><a href="https://github.com/omnideck-dev/pack-core-skills/blob/main/skills/create-skill/SKILL.md" target="_blank" rel="noopener">View SKILL.md &rarr;</a></footer>
+        </article>
+
+        <article class="card skill-card">
+          <header><h2>create-tool</h2></header>
+          <p>Create custom tools: parameterized, reusable operations that persist across sessions and are discoverable by all agents. Use when the user asks for a tool or when ad-hoc scripting repeats across sessions.</p>
+          <p><span class="chip">coding</span></p>
+          <footer><a href="https://github.com/omnideck-dev/pack-core-skills/blob/main/skills/create-tool/SKILL.md" target="_blank" rel="noopener">View SKILL.md &rarr;</a></footer>
+        </article>
+
+        <article class="card skill-card">
+          <header><h2>draw-charts</h2></header>
+          <p>Create data visualizations with chart-type selection matched to the question, honest encodings, data hygiene, and verified rendering. Use when the user asks for a chart, graph, plot, or any visualization of data.</p>
+          <p><span class="chip">coding</span></p>
+          <footer><a href="https://github.com/omnideck-dev/pack-core-skills/blob/main/skills/draw-charts/SKILL.md" target="_blank" rel="noopener">View SKILL.md &rarr;</a></footer>
+        </article>
+
+        <article class="card skill-card">
+          <header><h2>generate-image</h2></header>
+          <p>Generate or edit images with deliberate craft: prompt structure, style control, iteration strategy, and when generation is the wrong tool. Grants the image_generation category.</p>
+          <p><span class="chip">image_generation</span><span class="chip">coding</span></p>
+          <footer><a href="https://github.com/omnideck-dev/pack-core-skills/blob/main/skills/generate-image/SKILL.md" target="_blank" rel="noopener">View SKILL.md &rarr;</a></footer>
+        </article>
+
+        <article class="card skill-card">
+          <header><h2>humanize-text</h2></header>
+          <p>Remove AI tells and patterns from writing so it reads like a competent human wrote it: em-dash spam, "delve/dive" verbs, rule-of-three lists, hollow intensifiers, and structural tells. Use when the user asks to humanize or naturalize a draft.</p>
+          <p><span class="chip">memory</span></p>
+          <footer><a href="https://github.com/omnideck-dev/pack-core-skills/blob/main/skills/humanize-text/SKILL.md" target="_blank" rel="noopener">View SKILL.md &rarr;</a></footer>
+        </article>
+
+        <article class="card skill-card">
+          <header><h2>improve</h2></header>
+          <p>Reflect on the current conversation, what worked and what did not, and turn those lessons into something concrete: a new skill, a custom tool, a change to an existing skill or tool, a custom app, or an agent profile.</p>
+          <p><span class="chip">coding</span><span class="chip">memory</span></p>
+          <footer><a href="https://github.com/omnideck-dev/pack-core-skills/blob/main/skills/improve/SKILL.md" target="_blank" rel="noopener">View SKILL.md &rarr;</a></footer>
+        </article>
+
+        <article class="card skill-card">
+          <header><h2>install-skill</h2></header>
+          <p>Install Agent Skills from any source: git repos, skills.sh, skills.md, uploaded zips or tarballs, or loose SKILL.md files. Inspects the skill and shows the user what it is before installing.</p>
+          <p><span class="chip">coding</span><span class="chip">webfetch</span><span class="chip">browser</span></p>
+          <footer><a href="https://github.com/omnideck-dev/pack-core-skills/blob/main/skills/install-skill/SKILL.md" target="_blank" rel="noopener">View SKILL.md &rarr;</a></footer>
+        </article>
+
+        <article class="card skill-card">
+          <header><h2>make-docs</h2></header>
+          <p>Create and edit Word-style documents (.docx) with outline-first structure, style-based formatting, preserved hierarchy on edits, and verified output. Use when the user asks for a Word document or a formal document.</p>
+          <p><span class="chip">coding</span></p>
+          <footer><a href="https://github.com/omnideck-dev/pack-core-skills/blob/main/skills/make-docs/SKILL.md" target="_blank" rel="noopener">View SKILL.md &rarr;</a></footer>
+        </article>
+
+        <article class="card skill-card">
+          <header><h2>make-pdfs</h2></header>
+          <p>Read, create, modify, and visually verify PDFs: extraction with the right tool per document type, source-format rendering, and image-level verification before delivery. Use when the user asks to read, make, merge, fill, or check PDF files.</p>
+          <p><span class="chip">coding</span></p>
+          <footer><a href="https://github.com/omnideck-dev/pack-core-skills/blob/main/skills/make-pdfs/SKILL.md" target="_blank" rel="noopener">View SKILL.md &rarr;</a></footer>
+        </article>
+
+        <article class="card skill-card">
+          <header><h2>make-sheets</h2></header>
+          <p>Create, edit, analyze, and chart spreadsheets (xlsx, xls, csv, tsv, Google Sheets) with type-safe data models, formula-first authoring, chart-to-question matching, and verified output.</p>
+          <p><span class="chip">coding</span><span class="chip">drive</span></p>
+          <footer><a href="https://github.com/omnideck-dev/pack-core-skills/blob/main/skills/make-sheets/SKILL.md" target="_blank" rel="noopener">View SKILL.md &rarr;</a></footer>
+        </article>
+
+        <article class="card skill-card">
+          <header><h2>make-slides</h2></header>
+          <p>Create and edit PowerPoint or Google Slides presentations with story-first structure, audience-appropriate design, assertion headlines, speaker notes, and verified rendering. Use when the user asks for a deck or a presentation.</p>
+          <p><span class="chip">coding</span></p>
+          <footer><a href="https://github.com/omnideck-dev/pack-core-skills/blob/main/skills/make-slides/SKILL.md" target="_blank" rel="noopener">View SKILL.md &rarr;</a></footer>
+        </article>
+
+        <article class="card skill-card">
+          <header><h2>personal-context</h2></header>
+          <p>Detect when prior conversation state, decisions, preferences, or past attempts should change the current answer, and pull the relevant memory before acting. Use on references like "continue", "same as before", or "update it".</p>
+          <p><span class="chip">memory</span></p>
+          <footer><a href="https://github.com/omnideck-dev/pack-core-skills/blob/main/skills/personal-context/SKILL.md" target="_blank" rel="noopener">View SKILL.md &rarr;</a></footer>
+        </article>
+
+        <article class="card skill-card">
+          <header><h2>plan-learning</h2></header>
+          <p>Create spaced-repetition learning plans: break a topic into a dependency-ordered map, schedule it across available time, produce cards and resources, and set the review cadence. Use when the user wants to learn something or create a study plan.</p>
+          <p><span class="chip">planning</span><span class="chip">memory</span><span class="chip">webfetch</span></p>
+          <footer><a href="https://github.com/omnideck-dev/pack-core-skills/blob/main/skills/plan-learning/SKILL.md" target="_blank" rel="noopener">View SKILL.md &rarr;</a></footer>
+        </article>
+
+        <article class="card skill-card">
+          <header><h2>research</h2></header>
+          <p>Multi-source research: refine the question, search and read broadly, triangulate across sources, and synthesize findings with provenance and confidence levels. Use when the user asks to research, investigate, or compare.</p>
+          <p><span class="chip">browser</span><span class="chip">webfetch</span><span class="chip">http</span></p>
+          <footer><a href="https://github.com/omnideck-dev/pack-core-skills/blob/main/skills/research/SKILL.md" target="_blank" rel="noopener">View SKILL.md &rarr;</a></footer>
+        </article>
+
+        <article class="card skill-card">
+          <header><h2>resolve-recipient</h2></header>
+          <p>Resolve and verify the correct people before sending messages, email, invitations, or creating calendar events. Use whenever an action targets a person, especially with first names, duplicate names, nicknames, or ambiguous references.</p>
+          <p><span class="chip">contacts</span><span class="chip">email</span><span class="chip">calendar</span></p>
+          <footer><a href="https://github.com/omnideck-dev/pack-core-skills/blob/main/skills/resolve-recipient/SKILL.md" target="_blank" rel="noopener">View SKILL.md &rarr;</a></footer>
+        </article>
+
+        <article class="card skill-card">
+          <header><h2>review-code</h2></header>
+          <p>Correctness-focused review of code changes: bugs, edge cases, regressions, and severity-ranked findings. Use when the user asks to review a diff, PR, or recently changed code.</p>
+          <p><span class="chip">coding</span></p>
+          <footer><a href="https://github.com/omnideck-dev/pack-core-skills/blob/main/skills/review-code/SKILL.md" target="_blank" rel="noopener">View SKILL.md &rarr;</a></footer>
+        </article>
+
+        <article class="card skill-card">
+          <header><h2>test-skills</h2></header>
+          <p>Run the reproducible A/B skill-testing program for the pack-core-skills catalog: per-skill baseline-versus-treatment trials scored on a rubric, trigger probes, and report generation. Use when asked to test or benchmark this pack's skills.</p>
+          <p><span class="chip">coding</span></p>
+          <footer><a href="https://github.com/omnideck-dev/pack-core-skills/blob/main/skills/test-skills/SKILL.md" target="_blank" rel="noopener">View SKILL.md &rarr;</a></footer>
+        </article>
+
+        <article class="card skill-card">
+          <header><h2>visualize</h2></header>
+          <p>Create interactive diagrams, simulations, graphs, and mockups as self-contained HTML artifacts with parameter controls, live output, and single-screen views. Use when the user wants to explore how something works or compare mechanisms.</p>
+          <p><span class="chip">coding</span></p>
+          <footer><a href="https://github.com/omnideck-dev/pack-core-skills/blob/main/skills/visualize/SKILL.md" target="_blank" rel="noopener">View SKILL.md &rarr;</a></footer>
+        </article>
+
+        <article class="card skill-card">
+          <header><h2>write-code</h2></header>
+          <p>Write, edit, run, and debug code in the virtual computer: file editing, shell commands, package installs, long-running processes, and git/GitHub. The full filesystem-and-shell capability set.</p>
+          <p><span class="chip">coding</span></p>
+          <footer><a href="https://github.com/omnideck-dev/pack-core-skills/blob/main/skills/write-code/SKILL.md" target="_blank" rel="noopener">View SKILL.md &rarr;</a></footer>
+        </article>
+
+        <article class="card skill-card">
+          <header><h2>write-docs</h2></header>
+          <p>Write and maintain technical documentation: READMEs, how-tos, API references, architecture notes, and changelogs. Produces accurate, structured, audience-appropriate docs from code and conversation context.</p>
+          <p><span class="chip">coding</span><span class="chip">webfetch</span></p>
+          <footer><a href="https://github.com/omnideck-dev/pack-core-skills/blob/main/skills/write-docs/SKILL.md" target="_blank" rel="noopener">View SKILL.md &rarr;</a></footer>
+        </article>
+
+        <article class="card skill-card">
+          <header><h2>write-drafts</h2></header>
+          <p>Compose complete short-form drafts: messages, emails, posts, bios, and blurbs, register-matched and purpose-first, with unknowns marked rather than invented. Use when the user asks you to draft, rewrite, or polish text.</p>
+          <p><span class="chip">memory</span><span class="chip">email</span></p>
+          <footer><a href="https://github.com/omnideck-dev/pack-core-skills/blob/main/skills/write-drafts/SKILL.md" target="_blank" rel="noopener">View SKILL.md &rarr;</a></footer>
+        </article>
+
+      </div>
+    </section>
+
+  </main>
+
+  <!-- FOOTER -->
+  <footer class="container">
+    <p>&copy; <span id="year">2025</span> Omnideck. Licensed under the MIT License. Built with the Open Pack Format. <a href="https://github.com/omnideck-dev/pack-core-skills" target="_blank" rel="noopener">Source on GitHub</a>.</p>
+  </footer>
+
+  <!--
+    DARK-MODE-TOGGLE COMPONENT - loaded at the end of <body>.
+    Fetched from https://github.com/rlnorthcutt/dark-mode-toggle (see its dist/ folder).
+  -->
+  <script src="https://cdn.jsdelivr.net/gh/rlnorthcutt/dark-mode-toggle@main/dist/dark-mode-toggle.min.js" defer></script>
+  <script>document.getElementById('year').textContent = new Date().getFullYear();</script>
+</body>
+</html>

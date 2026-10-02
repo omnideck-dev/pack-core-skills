@@ -1,0 +1,159 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Testing - pack-core-skills</title>
+  <meta name="description" content="The reproducible A/B testing program behind pack-core-skills, the latest results, and what the numbers honestly show.">
+
+  <!--
+    PREPAINT SCRIPT - MUST come BEFORE the CSS links.
+    Reads the persisted theme (localStorage key "dm:theme") and sets
+    data-theme="dark" on <html> before any paint, preventing a flash of the
+    wrong theme on load. Do not move this below the <link> tags.
+  -->
+  <script>
+  (() => {
+    const KEY = 'dm:theme';
+    const root = document.documentElement;
+    const prefersDark = matchMedia('(prefers-color-scheme: dark)').matches;
+    let mode;
+    try { mode = localStorage.getItem(KEY); } catch {}
+    if (!mode) mode = (root.getAttribute('data-theme')==='dark'||root.classList.contains('dark'))?'dark':null;
+    if (!mode) mode = prefersDark ? 'dark' : 'light';
+    root.style.colorScheme = mode;
+    if (mode === 'dark') root.setAttribute('data-theme','dark');
+  })();
+  </script>
+
+  <!-- Ivy (classless baseline) - load first -->
+  <link rel="stylesheet" href="https://cdn.jsdelivr.net/gh/rlnorthcutt/ivy/dist/ivy.full.min.css">
+  <!-- Lattice (12-col layout utilities) - load second -->
+  <link rel="stylesheet" href="https://cdn.jsdelivr.net/gh/rlnorthcutt/lattice/dist/lattice.full.min.css">
+  <!-- Your theme - unlayered, loaded last so it wins over the libraries -->
+  <link rel="stylesheet" href="theme.css">
+</head>
+<body class="lattice">
+
+  <!-- SKIP LINK - first element in body -->
+  <a class="skip-link" href="#content">Skip to content</a>
+
+  <!-- STICKY HEADER - role="banner". Same header on every page. -->
+  <header role="banner">
+    <div class="container d-flex items-center justify-between gap-3">
+      <a href="./" style="display:flex;align-items:center;gap:.5rem;text-decoration:none;color:var(--color-text);font-weight:600;letter-spacing:-.01em">
+        <svg width="22" height="22" viewBox="0 0 24 24" aria-hidden="true" fill="currentColor" style="color:var(--color-primary);flex:none">
+          <path d="M12 2 2 7l10 5 10-5-10-5zM2 17l10 5 10-5M2 12l10 5 10-5"/>
+        </svg>
+        <span>pack-core-skills</span>
+      </a>
+      <nav aria-label="Primary">
+        <ul>
+          <li><a href="index.html">Home</a></li>
+          <li><a href="skills.html">Skills</a></li>
+          <li><a href="testing.html" aria-current="page">Testing</a></li>
+          <li><a href="https://github.com/omnideck-dev/pack-core-skills" target="_blank" rel="noopener">GitHub</a></li>
+          <li><dark-mode-toggle></dark-mode-toggle></li>
+        </ul>
+      </nav>
+    </div>
+  </header>
+
+  <!-- MAIN - id="content" is the skip-link target -->
+  <main id="content">
+
+    <!-- PAGE TITLE -->
+    <section class="page-title container" aria-labelledby="page-title">
+      <p class="kicker">Evidence</p>
+      <h1 id="page-title">Testing</h1>
+      <p class="lede">The pack ships a reproducible A/B testing program. Here is how it works, what the latest run showed, and where the numbers are honest about limits.</p>
+    </section>
+
+    <!-- HOW IT WORKS -->
+    <section class="container" aria-labelledby="how-title">
+      <h2 id="how-title">How the program works</h2>
+      <p>The testing program lives in the <code>testing/</code> directory. For each skill it runs a strict A/B protocol: a baseline trial (skill not loaded) versus a treatment trial (skill loaded), scored on a 5-criterion rubric out of 10, plus trigger probes to confirm the skill activates when it should.</p>
+      <p><strong>Pass rule:</strong> a skill passes when the treatment scores at least 2 times the baseline and reaches at least 70% of the maximum score.</p>
+      <div class="grid sm-col-3 gap-3">
+        <article class="card stat">
+          <div class="stat-num">5</div>
+          <div class="stat-label">Rubric criteria</div>
+        </article>
+        <article class="card stat">
+          <div class="stat-num">10</div>
+          <div class="stat-label">Max score</div>
+        </article>
+        <article class="card stat">
+          <div class="stat-num">2&times;</div>
+          <div class="stat-label">Pass threshold vs baseline</div>
+        </article>
+      </div>
+    </section>
+
+    <!-- LATEST RESULTS -->
+    <section class="container" aria-labelledby="results-title">
+      <h2 id="results-title">Latest results (2026-10-01)</h2>
+      <p>This run covered four model profiles: <code>deepseek-v4-flash</code>, <code>gemini-3.6-flash</code>, <code>glm-5.3-flash</code>, and <code>gemini-2.5-flash-lite</code>.</p>
+      <p><strong>No skill met the 2&times; pass rule on any profile in this run.</strong> We report that plainly. What the run did show is where skills matter, and the findings are the strengths of the method itself: the same philosophy section on the landing page, made empirical.</p>
+
+      <h3>Strong models get near-zero marginal value</h3>
+      <p>This is the ceiling effect. <code>gemini-3.6-flash</code> and <code>glm-5.3-flash</code> score 7 to 10 out of 10 on their baselines without any skill, so adding one changes little. Skills are not a substitute for a strong model.</p>
+
+      <h3>Weak models show the largest benefit</h3>
+      <p>This confirms the core hypothesis. On <code>gemini-2.5-flash-lite</code>, the smallest and cheapest profile, the gains were largest:</p>
+      <ul>
+        <li><code>review-code</code>: 3.67 to 7.0 (ratio 1.91)</li>
+        <li><code>research</code>: 5.0 to 7.33</li>
+        <li><code>humanize-text</code>: 5.0 to 6.67</li>
+        <li><code>plan-learning</code>: 4.33 to 5.0</li>
+      </ul>
+
+      <h3>Two skills actively made things worse</h3>
+      <p>In specific contexts, skills hurt rather than helped:</p>
+      <ul>
+        <li><code>review-security</code> inflated severities and suppressed correct "no findings" verdicts, with a ratio of 0.48 on deepseek.</li>
+        <li><code>research</code> hard-stopped in offline contexts, with a ratio of 0.45.</li>
+      </ul>
+      <p>Both findings drove fixes. <code>review-security</code> and <code>simplify-code</code> were removed from the pack, <code>research</code> gained an offline fallback, and six skills were refined from the findings (commit <code>2112038</code>).</p>
+
+      <h3>Load-bearing disciplines</h3>
+      <p>The run also identified the specific disciplines that carry the value, rather than whole skills:</p>
+      <ul>
+        <li><code>[NEEDS]</code> marking instead of invented facts (<code>write-drafts</code>)</li>
+        <li>Register preservation (<code>humanize-text</code>)</li>
+        <li>Chart-type matching (<code>draw-charts</code>)</li>
+        <li>Artifact-type classification (<code>improve</code>)</li>
+        <li>Failure-path discipline (<code>create-tool</code>)</li>
+        <li>Scope honesty (<code>plan-learning</code>)</li>
+      </ul>
+    </section>
+
+    <!-- FULL DETAILS -->
+    <section class="container" aria-labelledby="details-title">
+      <h2 id="details-title">Full details</h2>
+      <p>Everything is reproducible and linked from the repository. The latest version lives on <code>main</code>.</p>
+      <ul>
+        <li><a href="https://github.com/omnideck-dev/pack-core-skills/blob/main/testing/results/2026-10-01/REPORT.md" target="_blank" rel="noopener">Full report (REPORT.md)</a></li>
+        <li><a href="testing/report-2026-10-01.html">Self-contained HTML report</a> (also <a href="https://github.com/omnideck-dev/pack-core-skills/blob/main/testing/results/2026-10-01/report.html" target="_blank" rel="noopener">on GitHub</a>)</li>
+        <li><a href="https://github.com/omnideck-dev/pack-core-skills/blob/main/testing/TESTING-PLAN.md" target="_blank" rel="noopener">Testing plan</a></li>
+        <li><a href="https://github.com/omnideck-dev/pack-core-skills/blob/main/testing/SCHEMA.md" target="_blank" rel="noopener">Schema and rubric</a></li>
+        <li><a href="https://github.com/omnideck-dev/pack-core-skills/blob/main/testing/results/2026-10-01/skill-refinements.md" target="_blank" rel="noopener">Skill refinements from testing</a></li>
+        <li><a href="https://github.com/omnideck-dev/pack-core-skills/blob/main/skills/REJECTED.md" target="_blank" rel="noopener">Rejected skills</a></li>
+      </ul>
+    </section>
+
+  </main>
+
+  <!-- FOOTER -->
+  <footer class="container">
+    <p>&copy; <span id="year">2025</span> Omnideck. Licensed under the MIT License. Built with the Open Pack Format. <a href="https://github.com/omnideck-dev/pack-core-skills" target="_blank" rel="noopener">Source on GitHub</a>.</p>
+  </footer>
+
+  <!--
+    DARK-MODE-TOGGLE COMPONENT - loaded at the end of <body>.
+    Fetched from https://github.com/rlnorthcutt/dark-mode-toggle (see its dist/ folder).
+  -->
+  <script src="https://cdn.jsdelivr.net/gh/rlnorthcutt/dark-mode-toggle@main/dist/dark-mode-toggle.min.js" defer></script>
+  <script>document.getElementById('year').textContent = new Date().getFullYear();</script>
+</body>
+</html>
