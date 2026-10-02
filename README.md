@@ -13,9 +13,13 @@ See `spec/opf-spec-v1.md` in the opf-core repository for the format.
 ## Contents
 
 - `manifest.json` — the OPF v1 manifest.
-- `skills/<name>/skill.json` — the 22 skills in Omnideck's
-  `SkillRecord` JSON format (`id`, `name`, `description`, `prompt`,
-  `tool_categories`). `install-skill/` also carries its `SKILL.md`.
+- `skills/<name>/SKILL.md` — the 22 skills in the standard Agent Skills
+  format (agentskills.io): YAML frontmatter (`name`, `description`, and
+  `metadata.tool_categories` — a comma-separated list Omnideck reads to
+  grant tool categories; any other harness can ignore that key) plus a
+  markdown body as the prompt. This is a harness-agnostic format by
+  design — any Agent-Skills-compatible harness can load these directly,
+  not just Omnideck.
 - `.github/workflows/scan.yml`, `.gitlab-ci.yml` — CI scanning, already wired
   to opf-core's validator and scan template. No setup needed.
 - `hooks/pre-commit` — a local pre-commit security scan (fast feedback, not
@@ -64,12 +68,12 @@ your harness needs it) - see opf-core's own README for that one-time setup. If
 a dependency's skills don't show up after install, run `pack-doctor` to
 diagnose why.
 
-`install.sh` copies each vendored `skill.json` into the live skills directory
-(`$OMNIDECK_SKILLS_DIR`, else `/var/lib/omnideck/skills`, else
-`~/.claude/skills`). It is **idempotent and non-destructive**: a skill that is
-already installed live is reported and skipped, never overwritten. The live
-catalog is authoritative for already-installed skills, so re-running install
-never clobbers them.
+This pack has no `install.sh` lifecycle script - there's nothing harness-
+specific to do. Each skill is a plain `SKILL.md`, so the generic Agent Skills
+install step (reading `skills/<name>/SKILL.md`, registering it however the
+target harness needs) is all any harness, Omnideck included, requires. An
+Omnideck harness reads `metadata.tool_categories` from the frontmatter to
+grant tool categories; a harness with no such concept just ignores that key.
 
 ## Validate
 

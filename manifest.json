@@ -1,8 +1,8 @@
 {
   "name": "pack-core-skills",
-  "version": "0.2.0",
+  "version": "0.3.0",
   "pack_format": 1,
-  "description": "General-purpose creation, review, and writing skills for Omnideck \u2014 22 SkillRecord skills plus the test-skills testing program, as a portable kit",
+  "description": "General-purpose creation, review, and writing skills for Omnideck \u2014 22 Agent Skills (SKILL.md) plus the test-skills testing program, as a portable kit",
   "vendor": "omnideck-dev",
   "license": "MIT",
   "repository": "https://github.com/omnideck-dev/pack-core-skills",

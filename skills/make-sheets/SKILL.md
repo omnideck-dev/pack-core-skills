@@ -1,0 +1,52 @@
+---
+name: make-sheets
+description: Create, edit, analyze, and chart spreadsheets (xlsx, xls, csv, tsv, Google Sheets) — type-safe data models, formula-first authoring, chart-to-question matching, verified output. Use when the user asks to work with spreadsheet data, formulas, or charts.
+metadata:
+  tool_categories: coding,drive
+---
+
+# make-sheets — Spreadsheets: create, edit, analyze, chart
+
+## Core stance
+
+A spreadsheet is a data model with a surface. Get the model right (types, one variable per column, no merged cells) and the analysis and charts follow. Get it wrong (numbers as text, dates as strings, values baked into formulas) and no chart saves it.
+
+## Creating
+
+- **One variable per column, one observation per row.** Header row exactly; no multi-row headers, no merged cells — ever. Merged cells break sorting, filtering, charting, and every downstream tool.
+- **Types matter:** numbers numeric, dates real dates (not strings), categories consistent. Fix at entry, not after analysis.
+- **No formatting-as-data.** Color/bold is annotation, not values. Never encode meaning in cell fill.
+- **Formulas over baked values.** Totals are formulas; hardcoded constants only for true constants (tax rates, KPIs). Formulas are the audit trail.
+- **One fact per file-region:** raw data on one sheet, analysis on another, charts on a third. Never blend raw data with summary tables in the same range.
+- Name files with date and content: `2026-09-08_sales-by-region.xlsx`.
+
+## Editing existing files
+
+- Preserve the original; work on a copy unless the user wants in-place edits.
+- **Inspect before touching:** read headers, check types, find the last row, find stray totals embedded mid-column (the classic silent killer), spot inconsistencies.
+- Fix types first, then formulas, then analysis. Most "broken" spreadsheets are type problems.
+- Note the provenance of any added columns or derived values in the response.
+
+## Analysis
+
+- State what the data actually is before conclusions: shape, period covered, missing values, obvious anomalies.
+- **Aggregate with real operations** (SUMIFS, pivot-style groupings), not eyeballing.
+- Report uncertainty: missing data, uneven periods, changed definitions. An analysis that hides data quality problems is wrong even when the math is right.
+- Watch for the classics: double-counting rows, filtering on formatted-vs-raw values, percent-of-total computed on filtered subsets silently.
+
+## Charting
+
+- **Chart answers one question.** Match chart to question: trend → line; comparison → bar; composition → stacked bar (rarely pie); distribution → histogram.
+- Label axes with units. Title states the finding, not the variable ("Revenue doubled in Q3", not "Revenue by quarter").
+- No 3D, no dual axes unless truly necessary, no rainbow category palettes — one accent color, grey for context.
+- Numeric labels on the few points that matter; not every point.
+
+## Formats
+
+- **xlsx** for Excel workflows (openpyxl for create/edit); **CSV** for interchange and anything programmatic — CSV has no types, so re-validate on load.
+- **Google Sheets** when live collaboration matters; handle via export/import.
+- Always state what was done, what the caveats are, and what the source data was.
+
+## Verification step
+
+Before delivering: reload the file (or CSV round-trip), confirm row counts, check that computed columns compute, and confirm charts reference the intended ranges. A chart that silently points at the wrong range is worse than no chart.
