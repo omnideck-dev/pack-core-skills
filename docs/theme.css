@@ -71,6 +71,27 @@ header[role="banner"] {
   backdrop-filter: blur(10px);
 }
 
+/* Page ground - unlayered so host/embed styles can't leave the page transparent */
+html, body {
+  background: var(--color-bg);
+  color: var(--color-text);
+}
+
+/* Brand mark in the header */
+.brand {
+  display: flex;
+  align-items: center;
+  gap: 0.5rem;
+  text-decoration: none;
+  color: var(--color-text);
+  font-weight: 600;
+  letter-spacing: -0.01em;
+}
+.brand svg {
+  color: var(--color-primary);
+  flex: none;
+}
+
 /* Anchored sections clear the sticky header */
 [id] {
   scroll-margin-top: 5.5rem;
@@ -82,7 +103,7 @@ header[role="banner"] {
   line-height: 1.02;
   letter-spacing: -0.025em;
 }
-.hero .lede {
+.lede {
   font-size: 1.2rem;
   color: var(--color-muted);
   max-width: 42rem;
@@ -118,18 +139,21 @@ header[role="banner"] {
   margin-top: auto;
 }
 
-/* Stat tiles on the testing page */
+/* Stat tiles - one headline figure per card */
 .stat {
   text-align: center;
   padding: 1.25rem 1rem;
 }
-.stat .stat-num {
+.stat-num {
+  display: block;
   font-size: 2rem;
   font-weight: 800;
-  color: var(--color-primary);
   line-height: 1.1;
+  color: var(--color-primary);
+  font-variant-numeric: tabular-nums;
 }
-.stat .stat-label {
+.stat-label {
+  display: block;
   font-size: 0.85rem;
   color: var(--color-muted);
   margin-top: 0.25rem;
@@ -154,7 +178,7 @@ thead th {
   border-bottom: 2px solid var(--color-border);
   padding: 0.6rem 0.75rem;
 }
-tbody td {
+tbody :is(td, th) {
   padding: 0.55rem 0.75rem;
   border-bottom: 1px solid var(--color-border);
   vertical-align: top;
@@ -175,9 +199,63 @@ td.num, th.num {
 td code, td .mono {
   font-size: 0.85em;
 }
-/* Table caption / footnote */
-.table-note {
-  font-size: 0.85rem;
+/* Ivy puts <caption> below the table and mutes it; only the alignment is ours */
+caption {
+  text-align: left;
+}
+
+/* ----------------------------------------------------------------------------
+   Result tiers - data-tier="excellent|great|good|decent|none|negative|notrun"
+
+   Each tint is mixed from a status token against `transparent`, so one set of
+   rules stays legible on the light and the dark surface, and the text colour is
+   mixed toward --color-text so it always has contrast against its own tint.
+   -------------------------------------------------------------------------- */
+[data-tier] {
+  background: color-mix(in oklab, var(--tier) var(--tier-tint, 14%), transparent);
+  color: color-mix(in oklab, var(--tier) 55%, var(--color-text));
+  font-weight: 600;
+}
+[data-tier="excellent"] { --tier: var(--success); --tier-tint: 26%; }
+[data-tier="great"]     { --tier: var(--success); }
+[data-tier="good"]      { --tier: var(--info); }
+[data-tier="decent"]    { --tier: var(--info); --tier-tint: 8%; }
+[data-tier="negative"]  { --tier: var(--danger); --tier-tint: 20%; }
+[data-tier="none"],
+[data-tier="notrun"] {
+  background: none;
   color: var(--color-muted);
+  font-weight: 400;
+}
+td[data-tier] {
+  text-align: center;
+  font-variant-numeric: tabular-nums;
+}
+
+/* Tier key - lives inside the results table's <caption> */
+.legend {
+  display: flex;
+  flex-wrap: wrap;
+  align-items: center;
+  gap: 0.35rem;
   margin-top: 0.4rem;
+}
+.legend [data-tier] {
+  padding: 0.05rem 0.5rem;
+  border-radius: 999px;
+  font-size: 0.78rem;
+}
+
+/* In-page contents - Ivy already lays nav lists out as a flex row */
+.on-this-page a {
+  padding: 0.2rem 0.7rem;
+  border: 1px solid var(--color-border);
+  border-radius: 999px;
+  background: var(--surface-2);
+  font-size: 0.88rem;
+}
+.on-this-page a:hover {
+  background: var(--surface-3);
+  border-color: var(--color-primary);
+  text-decoration: none;
 }
