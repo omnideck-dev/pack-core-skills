@@ -6,26 +6,8 @@
   <title>Skills - pack-core-skills</title>
   <meta name="description" content="All 23 skills in the pack-core-skills catalog, with descriptions, tool categories, and links to each SKILL.md.">
 
-  <!--
-    PREPAINT SCRIPT - MUST come BEFORE the CSS links.
-    Reads the persisted theme (localStorage key "dm:theme") and sets
-    data-theme="dark" on <html> before any paint, preventing a flash of the
-    wrong theme on load. Do not move this below the <link> tags.
-  -->
-  <script>
-  (() => {
-    const KEY = 'dm:theme';
-    const root = document.documentElement;
-    const prefersDark = matchMedia('(prefers-color-scheme: dark)').matches;
-    let mode;
-    try { mode = localStorage.getItem(KEY); } catch {}
-    if (!mode) mode = (root.getAttribute('data-theme')==='dark'||root.classList.contains('dark'))?'dark':null;
-    if (!mode) mode = prefersDark ? 'dark' : 'light';
-    root.style.colorScheme = mode;
-    if (mode === 'dark') root.setAttribute('data-theme','dark');
-  })();
-  </script>
-
+  <!-- Prepaint: sets data-theme before first paint, so dark-mode-toggle (deferred, below) never flashes the wrong theme. Must stay synchronous and before the CSS links. -->
+  <script src="https://cdn.jsdelivr.net/gh/rlnorthcutt/dark-mode-toggle@main/dist/prepaint.min.js"></script>
   <!-- Ivy (classless baseline) - load first -->
   <link rel="stylesheet" href="https://cdn.jsdelivr.net/gh/rlnorthcutt/ivy/dist/ivy.full.min.css">
   <!-- Lattice (12-col layout utilities) - load second -->
